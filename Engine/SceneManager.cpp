@@ -7,7 +7,10 @@
 #include "GameObject.h"
 #include "MeshRenderer.h"
 #include "Transform.h"
+#include "Camera.h"
+
 #include "PlayerScript.h"
+#include "CameraScript.h"
 
 void SceneManager::Update()
 {
@@ -16,6 +19,22 @@ void SceneManager::Update()
 
 	_activeScene->Update();
 	_activeScene->LateUpdate();
+	_activeScene->FinalUpdate();
+}
+
+void SceneManager::Render()
+{
+	if (_activeScene == nullptr)
+		return;
+
+	const vector<shared_ptr<GameObject>>& gameObjects = _activeScene->GetGameObjects();
+	for (auto& gameObject : gameObjects)
+	{
+		if (gameObject->GetCamera() == nullptr)
+			continue;
+
+		gameObject->GetCamera()->Render();
+	}
 }
 
 // 인자로 들어온 type에 해당하는 Scene을 _activeScene으로 설정
@@ -100,22 +119,25 @@ void SceneManager::MakeMainScene()
 		}
 
 		mesh->Init(vec, indexVec);
-		gameObject->Init();
 
+		// Transform 추가
+		gameObject->AddComponent(make_shared<Transform>());
+		gameObject->GetTransform()->SetLocalScale(Vec3(170.f, 170.f, 0.f));
+		gameObject->GetTransform()->SetLocalPosition(Vec3(-280.f, -160.f, -2.f));
+
+		// MeshRenderer 생성
 		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
 		meshRenderer->SetMesh(mesh);
 
+		// Material 설정
 		shared_ptr<Material> material = make_shared<Material>();
 		material->SetShader(shader);
 		material->SetTexture(0, texture);
 		material->SetInt(0, 1);
 		meshRenderer->SetMaterial(material);
-
-		shared_ptr<PlayerScript> playerScript = make_shared<PlayerScript>();
-		gameObject->GetTransform()->SetTransform(Vec4(-0.5f, -0.5f, -0.2f, 0.f));
-
-		gameObject->AddComponent(meshRenderer);
-		gameObject->AddComponent(playerScript);
+				
+		gameObject->AddComponent(make_shared<PlayerScript>());
+		gameObject->AddComponent(meshRenderer);		
 		scene->AddGameObject(gameObject);
 	}
 #pragma endregion
@@ -151,19 +173,23 @@ void SceneManager::MakeMainScene()
 		}
 
 		mesh->Init(vec, indexVec);
-		gameObject2->Init();
 
+		// Transform 추가
+		gameObject2->AddComponent(make_shared<Transform>());
+		gameObject2->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
+		gameObject2->GetTransform()->SetLocalPosition(Vec3(300.f, -110.f, -2.f));
+
+		// MeshRenderer 생성
 		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
 		meshRenderer->SetMesh(mesh);
 
+		// Material 생성
 		shared_ptr<Material> material = make_shared<Material>();
 		material->SetShader(shader);
 		material->SetTexture(0, texture2);
 		material->SetInt(0, 1);
 		meshRenderer->SetMaterial(material);
-
-		gameObject2->GetTransform()->SetTransform(Vec4(0.5f, 0.5f, 0.f, 0.f));
-
+			
 		gameObject2->AddComponent(meshRenderer);
 		scene->AddGameObject(gameObject2);
 	}
@@ -199,8 +225,11 @@ void SceneManager::MakeMainScene()
 		// Mesh 생성
 		meshField->Init(vec2, indexVec2);
 
-		// GameObject 초기화(Transform Component 추가)
-		field->Init();
+		// Transform 생성
+		field->AddComponent(make_shared<Transform>());
+		float height = GEngine->GetWindow().height;
+		float width = GEngine->GetWindow().width;
+		field->GetTransform()->SetLocalScale(Vec3(width/2, height/2, 0.f));
 
 		// GameObject에 추가될 MeshRenderer
 		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
@@ -215,6 +244,17 @@ void SceneManager::MakeMainScene()
 
 		field->AddComponent(meshRenderer);
 		scene->AddGameObject(field);
+	}
+#pragma endregion
+
+#pragma region Camera
+	{
+		shared_ptr<GameObject> camera = make_shared<GameObject>();
+		camera->AddComponent(make_shared<Transform>());
+		camera->AddComponent(make_shared<Camera>());		
+		camera->AddComponent(make_shared<CameraScript>());
+		camera->GetTransform()->SetLocalPosition(Vec3(0.f, 0.f, -700.f));
+		scene->AddGameObject(camera);
 	}
 #pragma endregion
 

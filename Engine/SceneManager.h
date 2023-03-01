@@ -9,6 +9,7 @@ class SceneManager
 
 public:
 	void Update();
+	void Render();
 	void LoadScene(SCENE_TYPE type);
 
 public:

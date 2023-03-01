@@ -24,11 +24,14 @@ public:
 	void Start();
 	void Update();
 	void LateUpdate();	
+	void FinalUpdate();
 
 	SCENE_TYPE GetType() { return _type; }
 
 	void AddGameObject(shared_ptr<GameObject> gameObject);
 	void RemoveGameObject(shared_ptr<GameObject> gameObject);
+
+	const vector<shared_ptr<GameObject>>& GetGameObjects() { return _gameObjects; }
 
 private:
 	SCENE_TYPE _type;

@@ -17,14 +17,16 @@ PlayerScript::~PlayerScript()
 
 void PlayerScript::Update()
 {
-	shared_ptr<Transform> t = GetTransform();
+	Vec3 pos = GetTransform()->GetLocalPosition();
 
 	if (INPUT->GetButton(KEY_TYPE::W))
-		t->SetTransformY(1.f * DELTA_TIME);
+		pos += GetTransform()->GetUp() * _speed * DELTA_TIME;
 	if (INPUT->GetButton(KEY_TYPE::S))
-		t->SetTransformY(-(1.f * DELTA_TIME));
+		pos -= GetTransform()->GetUp() * _speed * DELTA_TIME;
 	if (INPUT->GetButton(KEY_TYPE::A))
-		t->SetTransformX(-(1.f * DELTA_TIME));
+		pos -= GetTransform()->GetRight() * _speed * DELTA_TIME;
 	if (INPUT->GetButton(KEY_TYPE::D))
-		t->SetTransformX(1.f * DELTA_TIME);	
+		pos += GetTransform()->GetRight() * _speed * DELTA_TIME;
+
+	GetTransform()->SetLocalPosition(pos);
 }

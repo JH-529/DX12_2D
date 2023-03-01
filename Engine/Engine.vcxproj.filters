@@ -99,6 +99,12 @@
     <ClInclude Include="MonoBehaviour.h">
       <Filter>GameObject\Script</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraScript.h">
+      <Filter>GameObject\Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -171,6 +177,12 @@
       <Filter>GameObject\Script</Filter>
     </ClCompile>
     <ClCompile Include="MonoBehaviour.cpp">
+      <Filter>GameObject\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraScript.cpp">
       <Filter>GameObject\Script</Filter>
     </ClCompile>
   </ItemGroup>

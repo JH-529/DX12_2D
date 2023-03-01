@@ -16,8 +16,7 @@ MeshRenderer::~MeshRenderer()
 
 void MeshRenderer::Render()
 {
-	GetTransform()->Update();
-
+	GetTransform()->PushData();
 	_material->Update();
 	_mesh->Render();
 }

@@ -10,6 +10,6 @@ public:
 	void Update() override;
 
 private:
-
+	float		_speed = 5.f;
 };
 

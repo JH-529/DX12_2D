@@ -4,6 +4,7 @@
 enum class BEHAVIOUR_TYPE : uint8
 {
 	PLAYER,
+	CAMERA,
 	END,
 };
 
