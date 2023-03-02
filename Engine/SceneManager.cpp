@@ -9,6 +9,7 @@
 #include "Transform.h"
 #include "Camera.h"
 #include "Resources.h"
+#include "RectCollider2D.h"
 
 #include "PlayerScript.h"
 #include "CameraScript.h"
@@ -133,6 +134,7 @@ void SceneManager::MakeMainScene()
 			meshRenderer->SetMaterial(material);
 		}							
 		gameObject2->AddComponent(meshRenderer);
+		gameObject2->AddComponent(make_shared<RectCollider2D>());
 		scene->AddGameObject(gameObject2);
 	}
 #pragma endregion
@@ -170,8 +172,9 @@ void SceneManager::MakeMainScene()
 		shared_ptr<GameObject> camera = make_shared<GameObject>();
 		camera->AddComponent(make_shared<Transform>());
 		camera->AddComponent(make_shared<Camera>());		
+		camera->GetCamera()->SetProjectionType(PROJECTION_TYPE::ORTHOGRAPHIC);
 		camera->AddComponent(make_shared<CameraScript>());
-		camera->GetTransform()->SetLocalPosition(Vec3(0.f, 0.f, -700.f));
+		camera->GetTransform()->SetLocalPosition(Vec3(0.f, 0.f, -100.f));
 		scene->AddGameObject(camera);
 	}
 #pragma endregion

@@ -6,6 +6,8 @@ class Transform;
 class MeshRenderer;
 class MonoBehaviour;
 class Camera;
+class Collider;
+class RectCollider2D;
 
 class GameObject : public Object, public enable_shared_from_this<GameObject>
 {
@@ -24,6 +26,8 @@ public:
 	shared_ptr<Transform> GetTransform();
 	shared_ptr<MeshRenderer> GetMeshRenderer();
 	shared_ptr<Camera> GetCamera();
+	shared_ptr<Collider> GetCollider();
+	shared_ptr<RectCollider2D> GetRectCollider2D();
 
 	void AddComponent(shared_ptr<Component> component);
 

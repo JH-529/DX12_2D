@@ -25,6 +25,9 @@
     <Filter Include="Object\GameObject\Script">
       <UniqueIdentifier>{2f47c1ed-0f6e-4914-835a-35fdc38ed752}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\GameObject\Collider">
+      <UniqueIdentifier>{e0ee7956-d6de-44c1-ae88-a7ed99bf5f6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -114,6 +117,12 @@
     <ClInclude Include="Resources.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Object\GameObject\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="RectCollider2D.h">
+      <Filter>Object\GameObject\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -200,9 +209,18 @@
     <ClCompile Include="Resources.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Object\GameObject\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="RectCollider2D.cpp">
+      <Filter>Object\GameObject\Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Resources\Shader\default.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Resources\Shader\collider.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

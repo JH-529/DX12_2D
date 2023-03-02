@@ -16,6 +16,9 @@ public:
 	virtual void FinalUpdate() override;
 	void Render();
 
+	void SetProjectionType(PROJECTION_TYPE type) { _type = type; }
+	PROJECTION_TYPE GetProjectionType() { return _type; }
+
 private:
 	PROJECTION_TYPE _type = PROJECTION_TYPE::PERSPECTIVE;
 
