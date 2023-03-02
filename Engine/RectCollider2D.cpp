@@ -10,8 +10,8 @@
 
 RectCollider2D::RectCollider2D() : Collider(COLLIDER_TYPE::RECT_COLLIDER_2D)
 {
-	_mesh = GET_SINGLE(Resources)->LoadRectMesh();
-	
+	_mesh = GET_SINGLE(Resources)->LoadColliderMesh();
+
 	shared_ptr<Shader> shader = make_shared<Shader>();
 	shader->Init(L"..\\Resources\\Shader\\collider.hlsl");
 	_material->SetShader(shader);
@@ -29,8 +29,8 @@ void RectCollider2D::FinalUpdate()
 }
 
 void RectCollider2D::Render()
-{
-	GetColliderTransform()->PushData();
+{	
+	_transform->PushData();
 	_material->Update();
-	_mesh->Render();
+	_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
 }

@@ -40,6 +40,51 @@ shared_ptr<Mesh> Resources::LoadRectMesh()
 	return rect;
 }
 
+shared_ptr<Mesh> Resources::LoadColliderMesh()
+{
+	shared_ptr<Mesh> findMesh = Get<Mesh>(L"RectCollider");
+	if (findMesh)
+		return findMesh;
+
+	vector<Vertex> vec(4);
+	vec[0].pos = Vec3(-0.5f, 0.5f, 0.f);
+	vec[0].color = Vec4(1.f, 0.f, 0.f, 1.f);
+	vec[0].uv = Vec2(0.f, 0.f);
+	vec[1].pos = Vec3(0.5f, 0.5f, 0.f);
+	vec[1].color = Vec4(0.f, 1.f, 0.f, 1.f);
+	vec[1].uv = Vec2(1.f, 0.f);
+	vec[2].pos = Vec3(0.5f, -0.5f, 0.f);
+	vec[2].color = Vec4(0.f, 0.f, 1.f, 1.f);
+	vec[2].uv = Vec2(1.f, 1.f);
+	vec[3].pos = Vec3(-0.5f, -0.5f, 0.f);
+	vec[3].color = Vec4(0.f, 1.f, 0.f, 1.f);
+	vec[3].uv = Vec2(0.f, 1.f);
+
+	vector<uint32> indexVec;
+	{
+		indexVec.push_back(0);
+		indexVec.push_back(1);			
+	}
+	{
+		indexVec.push_back(1);
+		indexVec.push_back(2);
+	}
+	{
+		indexVec.push_back(2);
+		indexVec.push_back(3);
+	}
+	{
+		indexVec.push_back(3);
+		indexVec.push_back(0);
+	}
+
+	shared_ptr<Mesh> rect = make_shared<Mesh>();
+	rect->Init(vec, indexVec);
+	Add(L"RectCollider", rect);
+
+	return rect;
+}
+
 
 //shared_ptr<Mesh> Resources::LoadCubeMesh()
 //{

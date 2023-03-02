@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "MeshRenderer.h"
 #include "Engine.h"
+#include "Collider.h"
 
 Matrix Camera::S_MatView;
 Matrix Camera::S_MatProjection;
@@ -45,7 +46,10 @@ void Camera::Render()
 	{
 		if (gameObject->GetMeshRenderer() == nullptr)
 			continue;
-
+		
 		gameObject->GetMeshRenderer()->Render();
+
+		if (gameObject->GetCollider())
+			gameObject->GetCollider()->Render();		
 	}
 }

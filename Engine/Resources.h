@@ -24,6 +24,7 @@ public:
 	OBJECT_TYPE GetObjectType();
 
 	shared_ptr<Mesh> LoadRectMesh();
+	shared_ptr<Mesh> LoadColliderMesh();
 	//shared_ptr<Mesh> LoadCubeMesh();
 	//shared_ptr<Mesh> LoadSphereMesh();
 

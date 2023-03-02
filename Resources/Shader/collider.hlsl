@@ -42,12 +42,12 @@ VS_OUT VS_Main(VS_IN input)
 
 float4 PS_Main(VS_OUT input) : SV_Target
 {
-    float4 color = {0.f, 1.f, 0.f, 0.f};
+    float4 color = (0.f, 1.f, 0.f, 0.f);
 
-    if(!int_0)
-        return color;        
+    if (!int_0)
+        return color;
     else
-        color = {1.f, 0.f, 0.f, 0.f};
+        color = (1.f, 0.f, 0.f, 0.f);
 
     return color;
 }

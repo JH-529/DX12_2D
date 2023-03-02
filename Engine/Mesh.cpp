@@ -19,9 +19,14 @@ void Mesh::Init(const vector<Vertex>& vertexBuffer, const vector<uint32>& indexB
 	CreateIndexBuffer(indexBuffer);
 }
 
-void Mesh::Render()
+void Mesh::Render(MESH_TYPE meshType)
 {
-	CMD_LIST->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	_meshType = meshType;
+
+	if (_meshType == MESH_TYPE::NORMAL_MESH)
+		CMD_LIST->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	if (_meshType == MESH_TYPE::LINESTRIP_MESH)
+		CMD_LIST->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_LINESTRIP);
 	CMD_LIST->IASetVertexBuffers(0, 1, &_vertexBufferView); // Slot: (0~15)
 	CMD_LIST->IASetIndexBuffer(&_indexBufferView);
 

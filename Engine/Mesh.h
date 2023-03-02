@@ -1,6 +1,12 @@
 #pragma once
 #include "Object.h"
 
+enum MESH_TYPE : uint8
+{
+	NORMAL_MESH,
+	LINESTRIP_MESH,
+};
+
 class Material;
 
 // [유니티짱]과 같이 정점으로 이루어진 물체
@@ -11,13 +17,15 @@ public:
 	virtual ~Mesh();
 
 	void Init(const vector<Vertex>& vertexBuffer, const vector<uint32>& indexbuffer);
-	void Render();
+	void Render(MESH_TYPE meshType = NORMAL_MESH);
 
 private:
 	void CreateVertexBuffer(const vector<Vertex>& buffer);
 	void CreateIndexBuffer(const vector<uint32>& buffer);
 
 private:
+	MESH_TYPE _meshType = NORMAL_MESH;
+
 	ComPtr<ID3D12Resource>		_vertexBuffer;
 	D3D12_VERTEX_BUFFER_VIEW	_vertexBufferView = {};
 	uint32 _vertexCount = 0;

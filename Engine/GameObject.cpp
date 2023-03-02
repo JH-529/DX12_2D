@@ -110,13 +110,15 @@ shared_ptr<Camera> GameObject::GetCamera()
 shared_ptr<Collider> GameObject::GetCollider()
 {
 	shared_ptr<Component> component = GetFixedComponent(COMPONENT_TYPE::COLLIDER);
-	return static_pointer_cast<Collider>(component);
-}
+	shared_ptr<Collider> collider = static_pointer_cast<Collider>(component);
 
-shared_ptr<RectCollider2D> GameObject::GetRectCollider2D()
-{
-	shared_ptr<Component> component = GetFixedComponent(COMPONENT_TYPE::COLLIDER);
-	return static_pointer_cast<RectCollider2D>(component);
+	if (collider != nullptr)
+	{
+		if(collider->GetColloderType() == COLLIDER_TYPE::RECT_COLLIDER_2D)
+			return static_pointer_cast<RectCollider2D>(collider);
+	}		
+
+	return nullptr;
 }
 
 void GameObject::AddComponent(shared_ptr<Component> component)

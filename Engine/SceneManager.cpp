@@ -78,12 +78,12 @@ void SceneManager::MakeMainScene()
 	shared_ptr<Scene> scene = make_shared<Scene>(SCENE_TYPE::MAIN);
 	
 	shared_ptr<Shader> defaultShader = make_shared<Shader>();
-	shared_ptr<Texture> anisTexture = make_shared<Texture>();
-	shared_ptr<Texture> rapiTexture = make_shared<Texture>();
+	shared_ptr<Texture> playerTexture = make_shared<Texture>();
+	shared_ptr<Texture> monsterTexture = make_shared<Texture>();	
 	shared_ptr<Texture> fieldTexture = make_shared<Texture>();
 	defaultShader->Init(L"..\\Resources\\Shader\\default.hlsl");
-	anisTexture->Init(L"..\\Resources\\Texture\\anis2.jpg");
-	rapiTexture->Init(L"..\\Resources\\Texture\\rapi.jpg");
+	playerTexture->Init(L"..\\Resources\\Texture\\Cat.png");
+	monsterTexture->Init(L"..\\Resources\\Texture\\BlueSnail.jpg");
 	fieldTexture->Init(L"..\\Resources\\Texture\\field.png");
 
 #pragma region Player
@@ -103,11 +103,12 @@ void SceneManager::MakeMainScene()
 		{ // 2. Material
 			shared_ptr<Material> material = make_shared<Material>();
 			material->SetShader(defaultShader);
-			material->SetTexture(0, anisTexture);
+			material->SetTexture(0, playerTexture);
 			material->SetInt(0, 1);
 			meshRenderer->SetMaterial(material);
 		}
 		gameObject->AddComponent(meshRenderer);
+		gameObject->AddComponent(make_shared<RectCollider2D>());
 		gameObject->AddComponent(make_shared<PlayerScript>());
 		scene->AddGameObject(gameObject);
 	}
@@ -129,7 +130,7 @@ void SceneManager::MakeMainScene()
 		{ // 2. Material
 			shared_ptr<Material> material = make_shared<Material>();
 			material->SetShader(defaultShader);
-			material->SetTexture(0, rapiTexture);
+			material->SetTexture(0, monsterTexture);
 			material->SetInt(0, 1);
 			meshRenderer->SetMaterial(material);
 		}							
