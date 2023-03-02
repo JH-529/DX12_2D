@@ -13,13 +13,16 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{ad397ec0-4cf8-4a49-864d-7c4b7c2b9336}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject">
-      <UniqueIdentifier>{602133be-9fad-48f6-ad9c-0ef69b451f2e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager">
       <UniqueIdentifier>{0c535774-4743-4577-94b6-779629f94bad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Script">
+    <Filter Include="Object">
+      <UniqueIdentifier>{b7c06e1b-22b1-403c-8e16-ea0af084a2d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\GameObject">
+      <UniqueIdentifier>{602133be-9fad-48f6-ad9c-0ef69b451f2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\GameObject\Script">
       <UniqueIdentifier>{2f47c1ed-0f6e-4914-835a-35fdc38ed752}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -66,17 +69,14 @@
     <ClInclude Include="DepthStencilBuffer.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>GameObject</Filter>
+      <Filter>Object\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="MeshRenderer.h">
-      <Filter>GameObject</Filter>
+      <Filter>Object\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>GameObject</Filter>
+      <Filter>Object\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Resource</Filter>
@@ -94,16 +94,25 @@
       <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="PlayerScript.h">
-      <Filter>GameObject\Script</Filter>
+      <Filter>Object\GameObject\Script</Filter>
     </ClInclude>
     <ClInclude Include="MonoBehaviour.h">
-      <Filter>GameObject\Script</Filter>
+      <Filter>Object\GameObject\Script</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>GameObject</Filter>
+      <Filter>Object\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="CameraScript.h">
-      <Filter>GameObject\Script</Filter>
+      <Filter>Object\GameObject\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -146,17 +155,14 @@
     <ClCompile Include="DepthStencilBuffer.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Component.cpp">
-      <Filter>GameObject</Filter>
+      <Filter>Object\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="MeshRenderer.cpp">
-      <Filter>GameObject</Filter>
+      <Filter>Object\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>GameObject</Filter>
+      <Filter>Object\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>Resource</Filter>
@@ -174,16 +180,25 @@
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="PlayerScript.cpp">
-      <Filter>GameObject\Script</Filter>
+      <Filter>Object\GameObject\Script</Filter>
     </ClCompile>
     <ClCompile Include="MonoBehaviour.cpp">
-      <Filter>GameObject\Script</Filter>
+      <Filter>Object\GameObject\Script</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>GameObject</Filter>
+      <Filter>Object\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="CameraScript.cpp">
-      <Filter>GameObject\Script</Filter>
+      <Filter>Object\GameObject\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

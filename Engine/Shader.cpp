@@ -2,6 +2,14 @@
 #include "Shader.h"
 #include "Engine.h"
 
+Shader::Shader() : Object(OBJECT_TYPE::SHADER)
+{
+}
+
+Shader::~Shader()
+{
+}
+
 void Shader::Init(const wstring& path)
 {
 	CreateVertexShader(path, "VS_Main", "vs_5_0");
