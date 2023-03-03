@@ -28,5 +28,7 @@ void PlayerScript::Update()
 	if (INPUT->GetButton(KEY_TYPE::D))
 		pos += GetTransform()->GetRight() * _speed * DELTA_TIME;
 
+
+
 	GetTransform()->SetLocalPosition(pos);
 }

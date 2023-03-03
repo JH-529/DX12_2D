@@ -16,6 +16,8 @@ cbuffer MATERIAL_PARAMS : register(b1)
     float float_2;
     float float_3;
     float float_4;
+    float2 padding;
+    float4 mainColor;
 };
 
 Texture2D tex_0 : register(t0);
