@@ -15,7 +15,7 @@ public:
 	virtual void LateUpdate() override;
 	virtual void FinalUpdate() override;
 
-	void Render();
+	virtual void Render() override;
 
 	void CollidedColor();
 	void BaseColor();

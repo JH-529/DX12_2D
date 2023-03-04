@@ -88,11 +88,12 @@ void SceneManager::MakeMainScene()
 
 #pragma region Player
 	{
-		shared_ptr<GameObject> gameObject = make_shared<GameObject>();
+		shared_ptr<GameObject> player = make_shared<GameObject>();
+		player->SetName(L"Player");
 		// Transform 眠啊
-		gameObject->AddComponent(make_shared<Transform>());
-		gameObject->GetTransform()->SetLocalScale(Vec3(170.f, 170.f, 0.f));
-		gameObject->GetTransform()->SetLocalPosition(Vec3(-280.f, -160.f, -2.f));
+		player->AddComponent(make_shared<Transform>());
+		player->GetTransform()->SetLocalScale(Vec3(170.f, 170.f, 0.f));
+		player->GetTransform()->SetLocalPosition(Vec3(-280.f, -160.f, -2.f));
 
 		// MeshRenderer 积己
 		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
@@ -107,20 +108,21 @@ void SceneManager::MakeMainScene()
 			material->SetInt(0, 1);
 			meshRenderer->SetMaterial(material);
 		}
-		gameObject->AddComponent(meshRenderer);
-		gameObject->AddComponent(make_shared<RectCollider2D>());
-		gameObject->AddComponent(make_shared<PlayerScript>());
-		scene->AddGameObject(gameObject);
+		player->AddComponent(meshRenderer);
+		player->AddComponent(make_shared<RectCollider2D>());
+		player->AddComponent(make_shared<PlayerScript>());
+		scene->AddGameObject(player);
 	}
 #pragma endregion
 
 #pragma region Object
 	{
-		shared_ptr<GameObject> gameObject2 = make_shared<GameObject>();
+		shared_ptr<GameObject> gameObject = make_shared<GameObject>();
+		gameObject->SetName(L"Object");
 		// Transform 眠啊
-		gameObject2->AddComponent(make_shared<Transform>());
-		gameObject2->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
-		gameObject2->GetTransform()->SetLocalPosition(Vec3(300.f, -110.f, -2.f));
+		gameObject->AddComponent(make_shared<Transform>());
+		gameObject->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
+		gameObject->GetTransform()->SetLocalPosition(Vec3(300.f, -110.f, -2.f));
 		// MeshRenderer 积己
 		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
 		{ // 1. Mesh
@@ -134,6 +136,33 @@ void SceneManager::MakeMainScene()
 			material->SetInt(0, 1);
 			meshRenderer->SetMaterial(material);
 		}							
+		gameObject->AddComponent(meshRenderer);
+		gameObject->AddComponent(make_shared<RectCollider2D>());
+		scene->AddGameObject(gameObject);
+	}
+#pragma endregion
+
+#pragma region Object
+	{
+		shared_ptr<GameObject> gameObject2 = make_shared<GameObject>();
+		gameObject2->SetName(L"Object2");
+		// Transform 眠啊
+		gameObject2->AddComponent(make_shared<Transform>());
+		gameObject2->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
+		gameObject2->GetTransform()->SetLocalPosition(Vec3(0.f, -110.f, -2.f));
+		// MeshRenderer 积己
+		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
+		{ // 1. Mesh
+			shared_ptr<Mesh> mesh = GET_SINGLE(Resources)->LoadRectMesh();
+			meshRenderer->SetMesh(mesh);
+		}
+		{ // 2. Material
+			shared_ptr<Material> material = make_shared<Material>();
+			material->SetShader(defaultShader);
+			material->SetTexture(0, monsterTexture);
+			material->SetInt(0, 1);
+			meshRenderer->SetMaterial(material);
+		}
 		gameObject2->AddComponent(meshRenderer);
 		gameObject2->AddComponent(make_shared<RectCollider2D>());
 		scene->AddGameObject(gameObject2);
@@ -143,6 +172,7 @@ void SceneManager::MakeMainScene()
 #pragma region field
 	{
 		shared_ptr<GameObject> fieldObject = make_shared<GameObject>();
+		fieldObject->SetName(L"Field");
 		// Transform 积己
 		fieldObject->AddComponent(make_shared<Transform>());
 		float height = GEngine->GetWindow().height;
@@ -171,6 +201,7 @@ void SceneManager::MakeMainScene()
 #pragma region Camera
 	{
 		shared_ptr<GameObject> camera = make_shared<GameObject>();
+		camera->SetName(L"Camera");
 		camera->AddComponent(make_shared<Transform>());
 		camera->AddComponent(make_shared<Camera>());		
 		camera->GetCamera()->SetProjectionType(PROJECTION_TYPE::ORTHOGRAPHIC);

@@ -33,8 +33,14 @@ void Scene::Update()
 		shared_ptr<Transform> object = colliderGameObject->GetTransform();
 		if (RectCollider2D::AABB(*player, *object))
 		{
-			_player->GetCollider();
+			_player->GetRectCollider2D()->CollidedColor();
+			colliderGameObject->GetRectCollider2D()->CollidedColor();
 		}
+		else
+		{
+			_player->GetRectCollider2D()->BaseColor();
+			colliderGameObject->GetRectCollider2D()->BaseColor();
+		}			
 	}
 
 	for (const shared_ptr<GameObject>& gameObject : _gameObjects)
@@ -64,7 +70,7 @@ void Scene::AddGameObject(shared_ptr<GameObject> gameObject)
 	_gameObjects.push_back(gameObject);
 
 	// 반드시 플레이어가 가장 먼저 추가되어야 한다.
-	if (_colliderGameObjects.empty())
+	if (_player == nullptr)
 	{
 		_player = gameObject;
 		return;

@@ -121,6 +121,12 @@ shared_ptr<Collider> GameObject::GetCollider()
 	return nullptr;
 }
 
+shared_ptr<RectCollider2D> GameObject::GetRectCollider2D()
+{
+	shared_ptr<Collider> component = GetCollider();
+	return static_pointer_cast<RectCollider2D>(component);
+}
+
 void GameObject::AddComponent(shared_ptr<Component> component)
 {
 	component->SetGameObject(shared_from_this());

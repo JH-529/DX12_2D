@@ -30,8 +30,6 @@ RectCollider2D::~RectCollider2D()
 
 void RectCollider2D::Update()
 {
-	if()
-
 	Render();
 }
 
@@ -79,8 +77,8 @@ bool RectCollider2D::AABB(Transform& world1, Transform& world2)
 	scale1.x = world1.GetLocalScale().x;
 	scale1.y = world1.GetLocalScale().y;
 	Vec2 scale2;
-	scale2.x = world1.GetLocalScale().x;
-	scale2.y = world1.GetLocalScale().y;
+	scale2.x = world2.GetLocalScale().x;
+	scale2.y = world2.GetLocalScale().y;
 
 	// 두 물체 사이의 각 축에서의 거리
 	Vec2 distance;

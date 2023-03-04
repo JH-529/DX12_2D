@@ -8,3 +8,7 @@ Collider::Collider(COLLIDER_TYPE type) : Component(COMPONENT_TYPE::COLLIDER), _t
 Collider::~Collider()
 {
 }
+
+void Collider::Render()
+{
+}
