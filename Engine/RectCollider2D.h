@@ -11,10 +11,16 @@ public:
 	RectCollider2D();
 	virtual ~RectCollider2D();
 
-	virtual void Update() override { Render(); }
+	virtual void Update() override;
 	virtual void LateUpdate() override;
 	virtual void FinalUpdate() override;
-	virtual void Render() override;
+
+	void Render();
+
+	void CollidedColor();
+	void BaseColor();
+
+	static bool AABB(Transform& world1, Transform& world2);
 
 private:
 	shared_ptr<Material>	_material = make_shared<Material>();

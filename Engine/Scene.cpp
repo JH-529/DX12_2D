@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Scene.h"
 #include "GameObject.h"
+#include "Transform.h"
+#include "RectCollider2D.h"
 
 Scene::Scene(SCENE_TYPE type) : _type(type)
 {
@@ -24,6 +26,17 @@ void Scene::Start()
 
 void Scene::Update()
 {
+	shared_ptr<Transform> player = _player->GetTransform();
+
+	for (const shared_ptr<GameObject>& colliderGameObject : _colliderGameObjects)
+	{
+		shared_ptr<Transform> object = colliderGameObject->GetTransform();
+		if (RectCollider2D::AABB(*player, *object))
+		{
+			_player->GetCollider();
+		}
+	}
+
 	for (const shared_ptr<GameObject>& gameObject : _gameObjects)
 	{
 		gameObject->Update();
@@ -49,6 +62,16 @@ void Scene::FinalUpdate()
 void Scene::AddGameObject(shared_ptr<GameObject> gameObject)
 {
 	_gameObjects.push_back(gameObject);
+
+	// 반드시 플레이어가 가장 먼저 추가되어야 한다.
+	if (_colliderGameObjects.empty())
+	{
+		_player = gameObject;
+		return;
+	}		
+
+	if (gameObject->GetCollider())
+		_colliderGameObjects.push_back(gameObject);
 }
 
 void Scene::RemoveGameObject(shared_ptr<GameObject> gameObject)

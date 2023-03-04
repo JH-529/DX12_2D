@@ -35,6 +35,8 @@ public:
 
 private:
 	SCENE_TYPE _type;
+	shared_ptr<GameObject> _player;
 	vector<shared_ptr<GameObject>> _gameObjects;	
+	vector<shared_ptr<GameObject>> _colliderGameObjects;
 };
 

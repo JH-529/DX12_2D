@@ -16,10 +16,7 @@ class Collider : public Component
 {
 public:
 	Collider(COLLIDER_TYPE type);
-	virtual ~Collider();
-			
-	virtual void Update() override { Render(); }
-	virtual void Render();
+	virtual ~Collider();			
 
 	COLLIDER_TYPE GetColloderType() { return _type; }
 private:
