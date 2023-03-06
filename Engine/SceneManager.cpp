@@ -8,6 +8,7 @@
 #include "MeshRenderer.h"
 #include "Transform.h"
 #include "Camera.h"
+#include "Attack.h"
 #include "Resources.h"
 #include "RectCollider2D.h"
 
@@ -111,6 +112,7 @@ void SceneManager::MakeMainScene()
 		player->AddComponent(meshRenderer);
 		player->AddComponent(make_shared<RectCollider2D>());
 		player->AddComponent(make_shared<PlayerScript>());
+		player->AddComponent(make_shared<Attack>());
 		scene->AddGameObject(player);
 	}
 #pragma endregion
@@ -122,7 +124,7 @@ void SceneManager::MakeMainScene()
 		// Transform 眠啊
 		gameObject->AddComponent(make_shared<Transform>());
 		gameObject->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
-		gameObject->GetTransform()->SetLocalPosition(Vec3(300.f, -110.f, -2.f));
+		gameObject->GetTransform()->SetLocalPosition(Vec3(0.f, -110.f, -2.f));
 		// MeshRenderer 积己
 		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
 		{ // 1. Mesh
@@ -142,14 +144,14 @@ void SceneManager::MakeMainScene()
 	}
 #pragma endregion
 
-#pragma region Object
+#pragma region Object2
 	{
 		shared_ptr<GameObject> gameObject2 = make_shared<GameObject>();
 		gameObject2->SetName(L"Object2");
 		// Transform 眠啊
 		gameObject2->AddComponent(make_shared<Transform>());
 		gameObject2->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
-		gameObject2->GetTransform()->SetLocalPosition(Vec3(0.f, -110.f, -2.f));
+		gameObject2->GetTransform()->SetLocalPosition(Vec3(300.f, -110.f, -2.f));
 		// MeshRenderer 积己
 		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
 		{ // 1. Mesh

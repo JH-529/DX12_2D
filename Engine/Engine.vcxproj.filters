@@ -28,6 +28,9 @@
     <Filter Include="Object\GameObject\Collider">
       <UniqueIdentifier>{e0ee7956-d6de-44c1-ae88-a7ed99bf5f6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\GameObject\Attack">
+      <UniqueIdentifier>{e83bc2e5-06ef-4d8f-88b1-0a40b5f2d7d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -123,6 +126,9 @@
     <ClInclude Include="RectCollider2D.h">
       <Filter>Object\GameObject\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="Attack.h">
+      <Filter>Object\GameObject\Attack</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -214,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="RectCollider2D.cpp">
       <Filter>Object\GameObject\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Attack.cpp">
+      <Filter>Object\GameObject\Attack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
