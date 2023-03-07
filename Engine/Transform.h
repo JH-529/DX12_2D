@@ -15,9 +15,10 @@ public:
 	const Vec3& GetLocalPosition() { return _localPosition; }
 	const Vec3& GetLocalRotation() { return _localRotation; }
 	const Vec3& GetLocalScale() { return _localScale; }
-
+		
 	const Matrix& GetLocalToWorldMatrix() { return _matWorld; }
-	const Vec3& GetWorldPosition() { return _matWorld.Translation(); }
+	const Vec3& GetWorldPosition() { return _worldPosition; }
+	const Vec3& GetWorldScale() { return _worldScale; }
 
 	Vec3 GetRight() { return _matWorld.Right(); }
 	Vec3 GetUp() { return _matWorld.Up(); }
@@ -36,6 +37,10 @@ private:
 	Vec3 _localPosition = {};
 	Vec3 _localRotation = {};
 	Vec3 _localScale = { 1.f, 1.f, 1.f };
+
+	Vec3 _worldPosition = {};
+	Vec3 _worldRotation = {}; // 2D∂Û « ø‰X
+	Vec3 _worldScale = {};
 
 	Matrix _matLocal = {};
 	Matrix _matWorld = {};

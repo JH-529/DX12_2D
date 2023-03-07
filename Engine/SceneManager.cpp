@@ -122,16 +122,14 @@ void SceneManager::MakeMainScene()
 			shared_ptr<GameObject> playerAttack = make_shared<GameObject>();
 			playerAttack->SetName(L"Player's Attack");
 			playerAttack->AddComponent(make_shared<Transform>());
-			Vec3 position = player->GetTransform()->GetLocalPosition();
-			position.x += 50.f;
-			playerAttack->GetTransform()->SetLocalPosition(position);
-			playerAttack->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0));
+			playerAttack->GetTransform()->SetLocalPosition(Vec3(0.7f, 0.f, 0.f));
+			playerAttack->GetTransform()->SetParent(player->GetTransform());				
+			playerAttack->GetTransform()->SetLocalScale(Vec3(1.f, 0.7f, 0));
 			{
 				shared_ptr<RectCollider2D> attackCollider = make_shared<RectCollider2D>();
 				attackCollider->SetAlive();
 				playerAttack->AddComponent(attackCollider);
-			}
-			playerAttack->AddComponent(make_shared<PlayerScript>());
+			}			
 			scene->AddGameObject(playerAttack);
 		}
 	}
@@ -200,11 +198,11 @@ void SceneManager::MakeMainScene()
 #pragma region Object3
 	{
 		shared_ptr<GameObject> gameObject = make_shared<GameObject>();
-		gameObject->SetName(L"Object");
+		gameObject->SetName(L"Object3");
 		// Transform 추가
 		gameObject->AddComponent(make_shared<Transform>());
 		gameObject->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
-		gameObject->GetTransform()->SetLocalPosition(Vec3(0.f, 0.f, -2.f));
+		gameObject->GetTransform()->SetLocalPosition(Vec3(100.f, 100.f, -2.f));
 		// MeshRenderer 생성
 		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
 		{ // 1. Mesh

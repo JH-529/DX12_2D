@@ -29,6 +29,9 @@ void Transform::FinalUpdate()
 	{
 		_matWorld *= parent->GetLocalToWorldMatrix();
 	}
+
+	_worldPosition = _matWorld.Translation();
+	_worldScale = _matWorld.Scale();
 }
 
 void Transform::PushData()

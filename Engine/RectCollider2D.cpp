@@ -83,19 +83,19 @@ bool RectCollider2D::AABB(Transform& world1, Transform& world2)
 {	
 	// 두 물체의 위치
 	Vec2 position1;
-	position1.x = world1.GetLocalPosition().x;
-	position1.y = world1.GetLocalPosition().y;
+	position1.x = world1.GetWorldPosition().x;
+	position1.y = world1.GetWorldPosition().y;
 	Vec2 position2;
-	position2.x = world2.GetLocalPosition().x;
-	position2.y = world2.GetLocalPosition().y;
+	position2.x = world2.GetWorldPosition().x;
+	position2.y = world2.GetWorldPosition().y;
 
 	// 두 물체의 x, y축 각각의 크기
 	Vec2 scale1;
-	scale1.x = world1.GetLocalScale().x;
-	scale1.y = world1.GetLocalScale().y;
+	scale1.x = world1.GetWorldScale().x;
+	scale1.y = world1.GetWorldScale().y;
 	Vec2 scale2;
-	scale2.x = world2.GetLocalScale().x;
-	scale2.y = world2.GetLocalScale().y;
+	scale2.x = world2.GetWorldScale().x;
+	scale2.y = world2.GetWorldScale().y;
 
 	// 두 물체 사이의 각 축에서의 거리
 	Vec2 distance;

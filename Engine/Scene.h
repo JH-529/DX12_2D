@@ -31,12 +31,16 @@ public:
 	void AddGameObject(shared_ptr<GameObject> gameObject);
 	void RemoveGameObject(shared_ptr<GameObject> gameObject);
 
+	void ObjectCollision();
+	void AttackCollision();
+
 	const vector<shared_ptr<GameObject>>& GetGameObjects() { return _gameObjects; }
 
 private:
 	SCENE_TYPE _type;
 	shared_ptr<GameObject> _player;
-	vector<shared_ptr<GameObject>> _gameObjects;	
+	vector<shared_ptr<GameObject>> _gameObjects;
 	vector<shared_ptr<GameObject>> _colliderGameObjects;
+	vector<shared_ptr<GameObject>> _colliderAttack;
 };
 
