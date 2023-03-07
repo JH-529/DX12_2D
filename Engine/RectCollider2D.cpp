@@ -52,9 +52,9 @@ void RectCollider2D::Render()
 	_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
 }
 
-void RectCollider2D::Render(Transform& position)
+void RectCollider2D::Render(weak_ptr<Transform> position)
 {
-	position.PushData();
+	position.lock()->PushData();
 	_material->Update();
 	_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
 }

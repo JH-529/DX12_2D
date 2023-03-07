@@ -6,6 +6,7 @@
 Attack::Attack() : Component(COMPONENT_TYPE::ATTACK)
 {
 	_collider = make_shared<RectCollider2D>();
+	_position = make_shared<Transform>();
 }
 
 Attack::~Attack()
@@ -14,25 +15,26 @@ Attack::~Attack()
 
 void Attack::Update()
 {
-	_position = GetTransform();
-	_localPosition = _position->GetLocalPosition();
+	_localPosition = GetTransform()->GetLocalPosition();
+	_localRotation = GetTransform()->GetLocalRotation();
+
+	_localPosition.x += 10;
+	_position->SetParent(GetTransform());
 }
 
 void Attack::LateUpdate()
 {
-	if (_position->GetRight().x > 0)
-		_localPosition.x += 2.f;
-	else
-		_localPosition.x -= 2.f;
-
 	_position->SetLocalPosition(_localPosition);
+	_position->SetLocalRotation(_localRotation);
+	_position->SetLocalScale(_localScale);
 }
 
 void Attack::FinalUpdate()
-{
-	_collider->Render(*_position);
+{	
+	Render();
 }
 
 void Attack::Render()
 {
+	_collider->Render(_position);
 }

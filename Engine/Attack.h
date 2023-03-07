@@ -21,6 +21,7 @@ private:
 	shared_ptr<RectCollider2D>	_collider;
 
 	Vec3 _localPosition = {};
+	Vec3 _localRotation = {};
 	Vec3 _localScale = Vec3(100.f, 100.f, 0.f);
 
 };

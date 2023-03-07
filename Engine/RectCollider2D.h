@@ -16,7 +16,7 @@ public:
 	virtual void FinalUpdate() override;
 
 	virtual void Render() override;
-	void Render(Transform& position);
+	void Render(weak_ptr<Transform> position);
 
 	void CollidedColor();
 	void BaseColor();
