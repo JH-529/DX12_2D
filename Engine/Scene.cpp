@@ -120,7 +120,6 @@ void Scene::ObjectCollision()
 
 void Scene::AttackCollision()
 {
-
 	for (const shared_ptr<GameObject>& colliderAttack : _colliderAttack)
 	{
 		colliderAttack->GetRectCollider2D()->SetCollidedFalse();
@@ -157,5 +156,8 @@ void Scene::AttackCollision()
 				}
 			}
 		}
+		// collider가 Dead일 경우 Collider의 경계선을 BaseColor로 칠함
+		else
+			colliderAttack->GetRectCollider2D()->BaseColor();
 	}
 }

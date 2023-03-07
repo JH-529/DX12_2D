@@ -13,6 +13,7 @@
 #include "RectCollider2D.h"
 
 #include "PlayerScript.h"
+#include "PlayerAttackScript.h"
 #include "CameraScript.h"
 
 void SceneManager::Update()
@@ -130,6 +131,7 @@ void SceneManager::MakeMainScene()
 				attackCollider->SetAlive();
 				playerAttack->AddComponent(attackCollider);
 			}			
+			playerAttack->AddComponent(make_shared<PlayerAttackScript>());
 			scene->AddGameObject(playerAttack);
 		}
 	}

@@ -183,6 +183,7 @@
     <ClInclude Include="MonoBehaviour.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PlayerAttackScript.h" />
     <ClInclude Include="PlayerScript.h" />
     <ClInclude Include="RectCollider2D.h" />
     <ClInclude Include="Resources.h" />
@@ -221,6 +222,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PlayerAttackScript.cpp" />
     <ClCompile Include="PlayerScript.cpp" />
     <ClCompile Include="RectCollider2D.cpp" />
     <ClCompile Include="Resources.cpp" />

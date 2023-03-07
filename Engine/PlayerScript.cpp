@@ -42,10 +42,4 @@ void PlayerScript::Update()
 	GetTransform()->SetLocalPosition(pos);
 }
 
-void PlayerScript::OnTrigger(shared_ptr<RectCollider2D> collider)
-{
-	_rectCollider = collider;
 
-	
-		
-}
