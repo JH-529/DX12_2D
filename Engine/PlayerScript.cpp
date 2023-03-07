@@ -6,6 +6,8 @@
 #include "Component.h"
 #include "Input.h"
 #include "Timer.h"
+#include "Collider.h"
+#include "RectCollider2D.h"
 
 PlayerScript::PlayerScript() : MonoBehaviour(BEHAVIOUR_TYPE::PLAYER)
 {
@@ -28,5 +30,22 @@ void PlayerScript::Update()
 	if (INPUT->GetButton(KEY_TYPE::D))
 		pos += GetTransform()->GetRight() * _speed * DELTA_TIME;
 
+	if (INPUT->GetButton(KEY_TYPE::Q))
+	{
+		GetGameObject()->GetCollider()->SetAlive();
+	}
+	if (INPUT->GetButton(KEY_TYPE::E))
+	{
+		GetGameObject()->GetCollider()->SetDead();
+	}
+
 	GetTransform()->SetLocalPosition(pos);
+}
+
+void PlayerScript::OnTrigger(shared_ptr<RectCollider2D> collider)
+{
+	_rectCollider = collider;
+
+	
+		
 }

@@ -21,8 +21,12 @@ public:
 	virtual void Render();
 
 	COLLIDER_TYPE GetColloderType() { return _type; }
+	void SetAlive() { _isAlive = true; }
+	void SetDead() { _isAlive = false; }
+	bool IsAlive() { return _isAlive; }
+	
 private:
 	COLLIDER_TYPE			_type;	
-	
+	bool					_isAlive = false;
 };
 

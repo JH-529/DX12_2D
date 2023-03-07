@@ -44,12 +44,12 @@ void Camera::Render()
 
 	for (auto& gameObject : gameObjects)
 	{
+		if (gameObject->GetCollider())
+			gameObject->GetCollider()->Render();
+
 		if (gameObject->GetMeshRenderer() == nullptr)
 			continue;
 		
-		gameObject->GetMeshRenderer()->Render();
-
-		if (gameObject->GetCollider())
-			gameObject->GetCollider()->Render();		
+		gameObject->GetMeshRenderer()->Render();	
 	}
 }

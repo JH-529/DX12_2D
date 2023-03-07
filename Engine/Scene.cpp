@@ -26,26 +26,31 @@ void Scene::Start()
 
 void Scene::Update()
 {
-	shared_ptr<Transform> player = _player->GetTransform();
+	shared_ptr<Transform> playerTransform = _player->GetTransform();
 	_player->GetRectCollider2D()->SetCollidedFalse();
 
 	for (const shared_ptr<GameObject>& colliderGameObject : _colliderGameObjects)
 	{
-		shared_ptr<Transform> object = colliderGameObject->GetTransform();
-		if (RectCollider2D::AABB(*player, *object))
+		shared_ptr<Transform> objectTransform = colliderGameObject->GetTransform();
+
+		// Collider가 살아있는 오브젝트에 대해서만 AABB 적용
+		if (_player->GetCollider()->IsAlive() && colliderGameObject->GetCollider()->IsAlive())
 		{
-			_player->GetRectCollider2D()->SetCollidedTrue();
-			_player->GetRectCollider2D()->CollidedColor();
-			colliderGameObject->GetRectCollider2D()->CollidedColor();
-		}
-		else
-		{	
-			if(_player->GetRectCollider2D()->GetCollided())
+			if (RectCollider2D::AABB(*playerTransform, *objectTransform))
+			{
+				_player->GetRectCollider2D()->SetCollidedTrue();
 				_player->GetRectCollider2D()->CollidedColor();
+				colliderGameObject->GetRectCollider2D()->CollidedColor();
+			}
 			else
-				_player->GetRectCollider2D()->BaseColor();
-			colliderGameObject->GetRectCollider2D()->BaseColor();
-		}			
+			{
+				if (_player->GetRectCollider2D()->GetCollided())
+					_player->GetRectCollider2D()->CollidedColor();
+				else
+					_player->GetRectCollider2D()->BaseColor();
+				colliderGameObject->GetRectCollider2D()->BaseColor();
+			}
+		}				
 	}
 	
 	for (const shared_ptr<GameObject>& gameObject : _gameObjects)

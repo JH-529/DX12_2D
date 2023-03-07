@@ -94,7 +94,7 @@ void SceneManager::MakeMainScene()
 		// Transform 추가
 		player->AddComponent(make_shared<Transform>());
 		player->GetTransform()->SetLocalScale(Vec3(170.f, 170.f, 0.f));
-		player->GetTransform()->SetLocalPosition(Vec3(-280.f, -160.f, -2.f));
+		player->GetTransform()->SetLocalPosition(Vec3(-300.f, -160.f, -2.f));
 
 		// MeshRenderer 생성
 		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
@@ -110,10 +110,30 @@ void SceneManager::MakeMainScene()
 			meshRenderer->SetMaterial(material);
 		}
 		player->AddComponent(meshRenderer);
-		player->AddComponent(make_shared<RectCollider2D>());
-		player->AddComponent(make_shared<PlayerScript>());
-		player->AddComponent(make_shared<Attack>());
+
+		shared_ptr<RectCollider2D> playerCollider = make_shared<RectCollider2D>();
+		playerCollider->SetAlive();
+		player->AddComponent(playerCollider);
+		player->AddComponent(make_shared<PlayerScript>());		
 		scene->AddGameObject(player);
+
+		// 플레이어의 공격 범위
+		{
+			shared_ptr<GameObject> playerAttack = make_shared<GameObject>();
+			playerAttack->SetName(L"Player's Attack");
+			playerAttack->AddComponent(make_shared<Transform>());
+			Vec3 position = player->GetTransform()->GetLocalPosition();
+			position.x += 50.f;
+			playerAttack->GetTransform()->SetLocalPosition(position);
+			playerAttack->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0));
+			{
+				shared_ptr<RectCollider2D> attackCollider = make_shared<RectCollider2D>();
+				attackCollider->SetAlive();
+				playerAttack->AddComponent(attackCollider);
+			}
+			playerAttack->AddComponent(make_shared<PlayerScript>());
+			scene->AddGameObject(playerAttack);
+		}
 	}
 #pragma endregion
 
@@ -139,7 +159,9 @@ void SceneManager::MakeMainScene()
 			meshRenderer->SetMaterial(material);
 		}							
 		gameObject->AddComponent(meshRenderer);
-		gameObject->AddComponent(make_shared<RectCollider2D>());
+		shared_ptr<RectCollider2D> collider = make_shared<RectCollider2D>();
+		collider->SetAlive();
+		gameObject->AddComponent(collider);
 		scene->AddGameObject(gameObject);
 	}
 #pragma endregion
@@ -166,10 +188,45 @@ void SceneManager::MakeMainScene()
 			meshRenderer->SetMaterial(material);
 		}
 		gameObject2->AddComponent(meshRenderer);
-		gameObject2->AddComponent(make_shared<RectCollider2D>());
+
+		shared_ptr<RectCollider2D> collider = make_shared<RectCollider2D>();
+		collider->SetAlive();
+		gameObject2->AddComponent(collider);
 		scene->AddGameObject(gameObject2);
 	}
 #pragma endregion
+
+
+#pragma region Object3
+	{
+		shared_ptr<GameObject> gameObject = make_shared<GameObject>();
+		gameObject->SetName(L"Object");
+		// Transform 추가
+		gameObject->AddComponent(make_shared<Transform>());
+		gameObject->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
+		gameObject->GetTransform()->SetLocalPosition(Vec3(0.f, 0.f, -2.f));
+		// MeshRenderer 생성
+		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
+		{ // 1. Mesh
+			shared_ptr<Mesh> mesh = GET_SINGLE(Resources)->LoadRectMesh();
+			meshRenderer->SetMesh(mesh);
+		}
+		{ // 2. Material
+			shared_ptr<Material> material = make_shared<Material>();
+			material->SetShader(defaultShader);
+			material->SetTexture(0, monsterTexture);
+			material->SetInt(0, 1);
+			meshRenderer->SetMaterial(material);
+		}
+		gameObject->AddComponent(meshRenderer);
+		shared_ptr<RectCollider2D> collider = make_shared<RectCollider2D>();
+		collider->SetAlive();
+		gameObject->AddComponent(collider);
+		scene->AddGameObject(gameObject);
+	}
+#pragma endregion
+
+
 
 #pragma region field
 	{

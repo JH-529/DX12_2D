@@ -14,6 +14,9 @@ enum class KEY_TYPE
 
 	Q = 'Q',
 	E = 'E',
+	J = 'J',
+	K = 'K',
+	L = 'L',
 };
 
 enum class KEY_STATE

@@ -30,15 +30,19 @@ RectCollider2D::~RectCollider2D()
 
 void RectCollider2D::Update()
 {
-	Render();
+	if(IsAlive())
+		Render();
 }
 
 void RectCollider2D::LateUpdate()
 {
-	if (INPUT->GetButton(KEY_TYPE::Q))
-		_material->SetVec4(_collidedColor);
-	if (INPUT->GetButton(KEY_TYPE::E))
-		_material->SetVec4(_baseColor);
+	if (IsAlive())
+	{
+		if (INPUT->GetButton(KEY_TYPE::Q))
+			_material->SetVec4(_collidedColor);
+		if (INPUT->GetButton(KEY_TYPE::E))
+			_material->SetVec4(_baseColor);
+	}	
 }
 
 void RectCollider2D::FinalUpdate()
@@ -47,16 +51,22 @@ void RectCollider2D::FinalUpdate()
 
 void RectCollider2D::Render()
 {	
-	GetTransform()->PushData();
-	_material->Update();
-	_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+	if (IsAlive())
+	{
+		GetTransform()->PushData();
+		_material->Update();
+		_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+	}
 }
 
 void RectCollider2D::Render(weak_ptr<Transform> position)
 {
-	position.lock()->PushData();
-	_material->Update();
-	_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+	if (IsAlive())
+	{
+		position.lock()->PushData();
+		_material->Update();
+		_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+	}
 }
 
 void RectCollider2D::CollidedColor()
@@ -70,7 +80,7 @@ void RectCollider2D::BaseColor()
 }
 
 bool RectCollider2D::AABB(Transform& world1, Transform& world2)
-{
+{	
 	// 두 물체의 위치
 	Vec2 position1;
 	position1.x = world1.GetLocalPosition().x;
