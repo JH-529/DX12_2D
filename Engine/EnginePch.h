@@ -127,6 +127,7 @@ public:								\
 
 #define INPUT				GET_SINGLE(Input)
 #define DELTA_TIME			GET_SINGLE(Timer)->GetDeltaTime()
+#define ACTIVE_SCENE		GET_SINGLE(SceneManager)->GetActiveScene()
 
 #define CONST_BUFFER(type)	GEngine->GetConstantBuffer(type)
 
