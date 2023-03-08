@@ -110,3 +110,41 @@ bool RectCollider2D::AABB(Transform& world1, Transform& world2)
 	// 위에서 걸러지지 않았다면 두 물체는 충돌한 상태이다
 	return true;
 }
+
+bool RectCollider2D::RayCastRect(Ray& ray, Transform& object)
+{
+	// Ray의 최종 벡터 형태 구하기
+	Vec2 rayPosition;
+	rayPosition = ray.pos;
+	Vec2 rayDir;
+	rayDir = ray.dir;
+	float rayScale;
+	rayScale = ray.distance;
+
+	// ratio^2 = d^2 / pos.x^2 + pos.y^2
+	float ratio = 0.f;	
+	ratio = sqrt(pow(rayScale, 2) / (pow(rayDir.x, 2) + pow(rayDir.y, 2)));
+	Vec2 rayEnd = Vec2(rayPosition.x + rayDir.x * ratio, rayPosition.y + rayDir.y * ratio);
+
+	// 위에서 구한 Ray와 충돌 여부를 판단할 Object의 Position, Scale
+	Vec2 objectPosition;
+	objectPosition.x = object.GetWorldPosition().x;
+	objectPosition.y = object.GetWorldPosition().y;
+	Vec2 objectScale;
+	objectScale.x = object.GetWorldScale().x;
+	objectScale.y = object.GetWorldScale().y;
+
+	// Ray의 양 끝점과 Object의 네 꼭짓점을 비교하여 Ray와 Object사이의 충돌 체크
+	if ((rayEnd.x > objectPosition.x - objectScale.x / 2) && (rayEnd.x < objectPosition.x + objectScale.x / 2) &&
+		(rayEnd.y > objectPosition.y - objectScale.y / 2) && (rayEnd.y < objectPosition.y + objectScale.y / 2))
+	{
+		return true;
+	}
+	if ((rayPosition.x > objectPosition.x - objectScale.x / 2) && (rayPosition.x < objectPosition.x + objectScale.x / 2) &&
+		(rayPosition.y > objectPosition.y - objectScale.y / 2) && (rayPosition.y < objectPosition.y + objectScale.y / 2))
+	{
+		return true;
+	}
+
+	return false;
+}

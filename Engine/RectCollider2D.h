@@ -25,6 +25,7 @@ public:
 	void SetCollidedFalse() { _collided = false; }
 
 	static bool AABB(Transform& world1, Transform& world2);
+	static bool RayCastRect(Ray& ray, Transform& object);
 
 private:
 	shared_ptr<Material>	_material = make_shared<Material>();

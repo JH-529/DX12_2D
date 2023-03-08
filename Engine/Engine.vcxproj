@@ -185,7 +185,6 @@
     <ClInclude Include="Physics2D.h" />
     <ClInclude Include="PlayerAttackScript.h" />
     <ClInclude Include="PlayerScript.h" />
-    <ClInclude Include="RayCastHit2D.h" />
     <ClInclude Include="RectCollider2D.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="RigidBody2D.h" />
@@ -226,7 +225,6 @@
     <ClCompile Include="Physics2D.cpp" />
     <ClCompile Include="PlayerAttackScript.cpp" />
     <ClCompile Include="PlayerScript.cpp" />
-    <ClCompile Include="RayCastHit2D.cpp" />
     <ClCompile Include="RectCollider2D.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="RigidBody2D.cpp" />

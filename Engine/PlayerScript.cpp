@@ -43,10 +43,10 @@ void PlayerScript::Update()
 	GetTransform()->SetLocalPosition(pos);
 
 	// RayCast µ¿ÀÛ Debuging¿ë
-	//Vec2 poss = Vec2(0.f, 0.f);
-	//Vec2 dir = Vec2(0.f, 0.f);
-	//float dis = 1.f;
-	//Physics2D::RayCast(poss, dir, dis);
+	Vec2 rayPos = Vec2(pos.x, pos.y);
+	Vec2 dir = Vec2(0.f, -1.f);
+	float dis = 3.f;
+	Physics2D::RayCast(rayPos, dir, dis);
 }
 
 

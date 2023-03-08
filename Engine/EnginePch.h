@@ -136,4 +136,18 @@ struct TransformParams
 	Matrix matWVP;
 };
 
+struct Ray
+{
+	Vec2 pos;
+	Vec2 dir;
+	float distance;
+};
+
+struct RayCastHit2D
+{
+	shared_ptr<class Collider> _collider;
+	shared_ptr<class RigidBody2D> _rigidBody;
+	float	_distance;
+};
+
 extern unique_ptr<class Engine> GEngine;
