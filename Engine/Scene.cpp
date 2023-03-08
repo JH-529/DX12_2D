@@ -30,7 +30,8 @@ void Scene::Update()
 	{
 		gameObject->Update();
 	}
-
+	ObjectCollision();
+	AttackCollision();
 }
 
 void Scene::LateUpdate()
@@ -46,22 +47,34 @@ void Scene::FinalUpdate()
 	for (const shared_ptr<GameObject>& gameObject : _gameObjects)
 	{
 		gameObject->FinalUpdate();
-	}
-
-	ObjectCollision();
-	AttackCollision();
+	}	
 }
 
 void Scene::AddGameObject(shared_ptr<GameObject> gameObject)
 {
 	_gameObjects.push_back(gameObject);
+	gameObject->SetScene(shared_from_this());
 
 	// 반드시 플레이어가 가장 먼저 추가되어야 한다.
-	if (_player == nullptr)
+	/*if (_player == nullptr)
 	{
 		_player = gameObject;
 		return;
-	}		
+	}*/
+
+	// GameObject가 추가 될 때마다 의미없는 if check 2회
+	// player, field를 추가하는 함수를 분리하는 것 고려 필요
+	if (gameObject->GetName() == L"Player")
+	{
+		_player = gameObject;
+		return;
+	}
+
+	if (gameObject->GetName() == L"Field")
+	{
+		_field = gameObject;
+		return;
+	}
 
 	if (gameObject->GetCollider())
 	{
@@ -160,4 +173,31 @@ void Scene::AttackCollision()
 		else
 			colliderAttack->GetRectCollider2D()->BaseColor();
 	}
+}
+
+const shared_ptr<GameObject> Scene::GetGameObject(wstring& name)
+{
+	for (auto& gameObject : _gameObjects)
+	{
+		if (gameObject->GetName() == name)
+		{
+			return gameObject;
+		}
+	}
+}
+
+const shared_ptr<GameObject> Scene::GetPlayer()
+{
+	if (_player)
+		return _player;
+	else
+		return nullptr;
+}
+
+const shared_ptr<GameObject> Scene::GetField()
+{
+	if (_field)
+		return _field;
+	else
+		return nullptr;
 }

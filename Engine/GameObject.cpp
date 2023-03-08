@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "Collider.h"
 #include "RectCollider2D.h"
+#include "RigidBody2D.h"
 #include "MonoBehaviour.h"
 
 GameObject::GameObject() : Object(OBJECT_TYPE::GAMEOBJECT)
@@ -105,6 +106,12 @@ shared_ptr<Camera> GameObject::GetCamera()
 {
 	shared_ptr<Component> component = GetFixedComponent(COMPONENT_TYPE::CAMERA);
 	return static_pointer_cast<Camera>(component);
+}
+
+shared_ptr<RigidBody2D> GameObject::GetRigidBody2D()
+{
+	shared_ptr<Component> component = GetFixedComponent(COMPONENT_TYPE::RIGID_BODY);
+	return static_pointer_cast<RigidBody2D>(component);
 }
 
 shared_ptr<Collider> GameObject::GetCollider()

@@ -8,6 +8,7 @@ enum class COMPONENT_TYPE : uint8
 	CAMERA,
 	COLLIDER,
 	ATTACK,
+	RIGID_BODY,
 	// ...
 	MONO_BEHAVIOUR,
 	END,

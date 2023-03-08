@@ -8,9 +8,9 @@
 #include "MeshRenderer.h"
 #include "Transform.h"
 #include "Camera.h"
-#include "Attack.h"
 #include "Resources.h"
 #include "RectCollider2D.h"
+#include "RigidBody2D.h"
 
 #include "PlayerScript.h"
 #include "PlayerAttackScript.h"
@@ -116,6 +116,7 @@ void SceneManager::MakeMainScene()
 		playerCollider->SetAlive();
 		player->AddComponent(playerCollider);
 		player->AddComponent(make_shared<PlayerScript>());		
+		player->AddComponent(make_shared<RigidBody2D>());
 		scene->AddGameObject(player);
 
 		// 플레이어의 공격 범위
@@ -227,15 +228,16 @@ void SceneManager::MakeMainScene()
 #pragma endregion
 
 
-
 #pragma region field
 	{
 		shared_ptr<GameObject> fieldObject = make_shared<GameObject>();
 		fieldObject->SetName(L"Field");
 		// Transform 생성
 		fieldObject->AddComponent(make_shared<Transform>());
-		float height = GEngine->GetWindow().height;
-		float width = GEngine->GetWindow().width;
+		/*float height = GEngine->GetWindow().height;		
+		float width = GEngine->GetWindow().width;*/		
+		float width = 1920;
+		float height = 1080;
 		fieldObject->GetTransform()->SetLocalScale(Vec3(width, height, 0.f));
 
 		// GameObject에 추가될 MeshRenderer
@@ -260,7 +262,7 @@ void SceneManager::MakeMainScene()
 #pragma region Camera
 	{
 		shared_ptr<GameObject> camera = make_shared<GameObject>();
-		camera->SetName(L"Camera");
+		camera->SetName(L"Camera");		
 		camera->AddComponent(make_shared<Transform>());
 		camera->AddComponent(make_shared<Camera>());		
 		camera->GetCamera()->SetProjectionType(PROJECTION_TYPE::ORTHOGRAPHIC);

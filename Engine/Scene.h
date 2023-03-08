@@ -15,7 +15,7 @@ enum
 class GameObject;
 
 
-class Scene
+class Scene : public enable_shared_from_this<Scene>
 {
 public:
 	Scene(SCENE_TYPE type);
@@ -35,10 +35,15 @@ public:
 	void AttackCollision();
 
 	const vector<shared_ptr<GameObject>>& GetGameObjects() { return _gameObjects; }
+	const shared_ptr<GameObject> GetGameObject(wstring& name);
+
+	const shared_ptr<GameObject> GetPlayer();
+	const shared_ptr<GameObject> GetField();
 
 private:
 	SCENE_TYPE _type;
 	shared_ptr<GameObject> _player;
+	shared_ptr<GameObject> _field;
 	vector<shared_ptr<GameObject>> _gameObjects;
 	vector<shared_ptr<GameObject>> _colliderGameObjects;
 	vector<shared_ptr<GameObject>> _colliderAttack;

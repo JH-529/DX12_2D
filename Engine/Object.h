@@ -39,5 +39,6 @@ protected:
 protected:
 	OBJECT_TYPE _objectType = OBJECT_TYPE::NONE;
 	wstring _name;
+	
 };
 

@@ -19,17 +19,17 @@
     <Filter Include="Object">
       <UniqueIdentifier>{b7c06e1b-22b1-403c-8e16-ea0af084a2d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\GameObject">
+    <Filter Include="Object\Component">
       <UniqueIdentifier>{602133be-9fad-48f6-ad9c-0ef69b451f2e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\GameObject\Script">
+    <Filter Include="Object\Component\Script">
       <UniqueIdentifier>{2f47c1ed-0f6e-4914-835a-35fdc38ed752}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\GameObject\Collider">
+    <Filter Include="Object\Component\Collider">
       <UniqueIdentifier>{e0ee7956-d6de-44c1-ae88-a7ed99bf5f6b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\GameObject\Attack">
-      <UniqueIdentifier>{e83bc2e5-06ef-4d8f-88b1-0a40b5f2d7d5}</UniqueIdentifier>
+    <Filter Include="Object\Component\RigidBody">
+      <UniqueIdentifier>{cc6817eb-4e48-4361-92ba-0fde373cc40e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -76,13 +76,13 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>Object\GameObject</Filter>
+      <Filter>Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="MeshRenderer.h">
-      <Filter>Object\GameObject</Filter>
+      <Filter>Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>Object\GameObject</Filter>
+      <Filter>Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Resource</Filter>
@@ -100,16 +100,16 @@
       <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="PlayerScript.h">
-      <Filter>Object\GameObject\Script</Filter>
+      <Filter>Object\Component\Script</Filter>
     </ClInclude>
     <ClInclude Include="MonoBehaviour.h">
-      <Filter>Object\GameObject\Script</Filter>
+      <Filter>Object\Component\Script</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Object\GameObject</Filter>
+      <Filter>Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="CameraScript.h">
-      <Filter>Object\GameObject\Script</Filter>
+      <Filter>Object\Component\Script</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Object</Filter>
@@ -121,16 +121,16 @@
       <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
-      <Filter>Object\GameObject\Collider</Filter>
+      <Filter>Object\Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="RectCollider2D.h">
-      <Filter>Object\GameObject\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Attack.h">
-      <Filter>Object\GameObject\Attack</Filter>
+      <Filter>Object\Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="PlayerAttackScript.h">
-      <Filter>Object\GameObject\Script</Filter>
+      <Filter>Object\Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody2D.h">
+      <Filter>Object\Component\RigidBody</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -174,13 +174,13 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
-      <Filter>Object\GameObject</Filter>
+      <Filter>Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="MeshRenderer.cpp">
-      <Filter>Object\GameObject</Filter>
+      <Filter>Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>Object\GameObject</Filter>
+      <Filter>Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>Resource</Filter>
@@ -198,16 +198,16 @@
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="PlayerScript.cpp">
-      <Filter>Object\GameObject\Script</Filter>
+      <Filter>Object\Component\Script</Filter>
     </ClCompile>
     <ClCompile Include="MonoBehaviour.cpp">
-      <Filter>Object\GameObject\Script</Filter>
+      <Filter>Object\Component\Script</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Object\GameObject</Filter>
+      <Filter>Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="CameraScript.cpp">
-      <Filter>Object\GameObject\Script</Filter>
+      <Filter>Object\Component\Script</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Object</Filter>
@@ -219,16 +219,16 @@
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>Object\GameObject\Collider</Filter>
+      <Filter>Object\Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="RectCollider2D.cpp">
-      <Filter>Object\GameObject\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Attack.cpp">
-      <Filter>Object\GameObject\Attack</Filter>
+      <Filter>Object\Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="PlayerAttackScript.cpp">
-      <Filter>Object\GameObject\Script</Filter>
+      <Filter>Object\Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody2D.cpp">
+      <Filter>Object\Component\RigidBody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
