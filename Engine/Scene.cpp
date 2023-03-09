@@ -25,13 +25,13 @@ void Scene::Start()
 }
 
 void Scene::Update()
-{	
+{
+	ObjectCollision();
+	AttackCollision();
 	for (const shared_ptr<GameObject>& gameObject : _gameObjects)
 	{
 		gameObject->Update();
-	}
-	ObjectCollision();
-	AttackCollision();
+	}	
 }
 
 void Scene::LateUpdate()

@@ -9,6 +9,7 @@
 #include "Collider.h"
 #include "RectCollider2D.h"
 #include "Physics2D.h"
+#include "Debug.h"
 
 PlayerScript::PlayerScript() : MonoBehaviour(BEHAVIOUR_TYPE::PLAYER)
 {
@@ -46,7 +47,13 @@ void PlayerScript::Update()
 	Vec2 rayPos = Vec2(pos.x, pos.y);
 	Vec2 dir = Vec2(0.f, -1.f);
 	float dis = 3.f;
-	Physics2D::RayCast(rayPos, dir, dis);
+	Debug::DrawRay2D(rayPos, dir, dis*10.f);
+	RayCastHit2D rayHit = Physics2D::RayCast(rayPos, dir, dis);
+
+	if (rayHit._collider != nullptr)
+	{
+		rayHit._collider->GetGameObject()->GetRectCollider2D()->CollidedColor();
+	}
 }
 
 

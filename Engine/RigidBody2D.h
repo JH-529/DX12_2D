@@ -26,6 +26,6 @@ public:
 private:
 	RIGID_BODY_TYPE _type = RIGID_BODY_TYPE::NONE;
 	float	_mass = 1.f;
-	float	_gravityScale = 9.8f;
+	float	_gravityScale = 2.f;
 };
 
