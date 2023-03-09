@@ -5,6 +5,7 @@ class Transform : public Component
 {
 public:
 	Transform();
+	Transform(COMPONENT_TYPE type);
 	virtual ~Transform();
 
 	virtual void FinalUpdate() override;

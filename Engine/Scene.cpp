@@ -78,10 +78,13 @@ void Scene::AddGameObject(shared_ptr<GameObject> gameObject)
 
 	if (gameObject->GetCollider())
 	{
-		if (gameObject->GetMeshRenderer())
-			_colliderGameObjects.push_back(gameObject);
-		if (!gameObject->GetMeshRenderer())
+		if (gameObject->GetName() == L"Attack")
+		{
 			_colliderAttack.push_back(gameObject);
+			return;
+		}			
+		_colliderGameObjects.push_back(gameObject);
+		
 	}
 		
 }

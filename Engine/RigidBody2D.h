@@ -1,5 +1,5 @@
 #pragma once
-#include "Component.h"
+#include "Transform.h"
 
 enum class RIGID_BODY_TYPE : uint8
 {
@@ -10,22 +10,33 @@ enum class RIGID_BODY_TYPE : uint8
 	END,
 };
 
-class RigidBody2D : public Component
+class RigidBody2D : public Transform
 {
 public:
 	RigidBody2D();
 	virtual ~RigidBody2D();
 
+	virtual void Awake() override;
 	virtual void Update() override;
 	virtual void LateUpdate() override;
 	virtual void FinalUpdate() override;
 
+	bool Collision();
+
+	void SetForce(float value) { _force = value; }
 	void SetMass(float value) { _mass = value; }
-	void SetGravity(float value) { _gravityScale = value; }
+	void SetGravity(float value) { _gravity = value; }
+	
+	float GetForce() { return _force; }
+	float GetMass() { return _mass; }
+	float GetGravity() { return _gravity; }
 
 private:
 	RIGID_BODY_TYPE _type = RIGID_BODY_TYPE::NONE;
+	shared_ptr<Transform> _transform;
+
+	float	_force = 1.f;
 	float	_mass = 1.f;
-	float	_gravityScale = 2.f;
+	float	_gravity = 2.f;
 };
 

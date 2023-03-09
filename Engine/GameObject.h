@@ -8,6 +8,7 @@ class MonoBehaviour;
 class Camera;
 class Collider;
 class RectCollider2D;
+class TilemapCollider;
 class RigidBody2D;
 
 class Scene;
@@ -32,6 +33,7 @@ public:
 	shared_ptr<RigidBody2D> GetRigidBody2D();
 	shared_ptr<Collider> GetCollider();
 	shared_ptr<RectCollider2D> GetRectCollider2D();
+	shared_ptr<TilemapCollider> GetTilemapCollider();
 	
 	void AddComponent(shared_ptr<Component> component);
 

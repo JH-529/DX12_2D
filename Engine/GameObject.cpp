@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "Collider.h"
 #include "RectCollider2D.h"
+#include "TilemapCollider.h"
 #include "RigidBody2D.h"
 #include "MonoBehaviour.h"
 
@@ -123,6 +124,8 @@ shared_ptr<Collider> GameObject::GetCollider()
 	{
 		if(collider->GetColloderType() == COLLIDER_TYPE::RECT_COLLIDER_2D)
 			return static_pointer_cast<RectCollider2D>(collider);
+		if (collider->GetColloderType() == COLLIDER_TYPE::TILEMAP_COLLIDER)
+			return static_pointer_cast<TilemapCollider>(collider);
 	}		
 
 	return nullptr;

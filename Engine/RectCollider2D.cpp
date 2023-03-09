@@ -11,13 +11,31 @@
 
 RectCollider2D::RectCollider2D() : Collider(COLLIDER_TYPE::RECT_COLLIDER_2D)
 {
+	_mesh = make_shared<Mesh>();
 	_mesh = GET_SINGLE(Resources)->LoadColliderMesh();
 
+	_material = make_shared<Material>();
 	shared_ptr<Shader> shader = make_shared<Shader>();
 	shared_ptr<Texture> texture = make_shared<Texture>();
 	shader->Init(L"..\\Resources\\Shader\\collider.hlsl", TOPOLOGY_TYPE::LINE);
 	_material->SetShader(shader);	
 	_material->SetInt(0, 1);		
+	_material->SetVec4(_baseColor);
+}
+
+RectCollider2D::RectCollider2D(weak_ptr<Transform> transform) : Collider(COLLIDER_TYPE::RECT_COLLIDER_2D)
+{
+	_transform = transform.lock();
+
+	_mesh = make_shared<Mesh>();
+	_mesh = GET_SINGLE(Resources)->LoadColliderMesh();
+
+	_material = make_shared<Material>();
+	shared_ptr<Shader> shader = make_shared<Shader>();
+	shared_ptr<Texture> texture = make_shared<Texture>();
+	shader->Init(L"..\\Resources\\Shader\\collider.hlsl", TOPOLOGY_TYPE::LINE);
+	_material->SetShader(shader);
+	_material->SetInt(0, 1);
 	_material->SetVec4(_baseColor);
 }
 
@@ -48,16 +66,34 @@ void RectCollider2D::FinalUpdate()
 
 void RectCollider2D::Render()
 {		
-	GetTransform()->PushData();
-	_material->Update();
-	_mesh->Render(MESH_TYPE::LINESTRIP_MESH);	
+	if (_transform == nullptr)
+	{
+		GetTransform()->PushData();
+		_material->Update();
+		_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+	}	
+	else
+	{
+		_transform->PushData();
+		_material->Update();
+		_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+	}
 }
 
 void RectCollider2D::Render(weak_ptr<Transform> position)
 {		
-	position.lock()->PushData();
-	_material->Update();
-	_mesh->Render(MESH_TYPE::LINESTRIP_MESH);	
+	if (_transform == nullptr)
+	{
+		position.lock()->PushData();
+		_material->Update();
+		_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+	}	
+	else
+	{
+		_transform->PushData();
+		_material->Update();
+		_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+	}
 }
 
 void RectCollider2D::CollidedColor()

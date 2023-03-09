@@ -196,6 +196,7 @@
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="TableDescriptorHeap.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TilemapCollider.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
@@ -237,6 +238,7 @@
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="TableDescriptorHeap.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TilemapCollider.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>

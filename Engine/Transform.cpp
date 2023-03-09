@@ -8,6 +8,12 @@ Transform::Transform() : Component(COMPONENT_TYPE::TRANSFORM)
 
 }
 
+// RigidBody2D가 RIGITBODY로 타입 지정하기위한 생성자
+Transform::Transform(COMPONENT_TYPE type) : Component(type)
+{
+	
+}
+
 Transform::~Transform()
 {
 

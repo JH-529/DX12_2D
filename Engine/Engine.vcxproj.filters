@@ -138,6 +138,9 @@
     <ClInclude Include="Debug.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="TilemapCollider.h">
+      <Filter>Object\Component\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -241,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="Debug.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapCollider.cpp">
+      <Filter>Object\Component\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

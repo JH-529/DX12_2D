@@ -8,6 +8,7 @@
 #include "Timer.h"
 #include "Collider.h"
 #include "RectCollider2D.h"
+#include "RigidBody2D.h"
 #include "Physics2D.h"
 #include "Debug.h"
 
@@ -22,9 +23,21 @@ PlayerScript::~PlayerScript()
 void PlayerScript::Update()
 {
 	Vec3 pos = GetTransform()->GetLocalPosition();
+	shared_ptr<GameObject> player = GetGameObject();
 
-	if (INPUT->GetButton(KEY_TYPE::W))
-		pos += GetTransform()->GetUp() * _speed * DELTA_TIME;
+	// force, mass의 아래 상호작용은 RigidBody2D에서
+	// AddForce()메서드를 통해 수행되어야함
+	float force = player->GetRigidBody2D()->GetForce();
+	float mass = player->GetRigidBody2D()->GetMass();
+	float jumpPower = force - mass;
+
+	if (jumpPower <= 0)
+	{
+		jumpPower = 0.1f;
+	}
+	
+	if (INPUT->GetButton(KEY_TYPE::SPACE))
+		pos += GetTransform()->GetUp() * jumpPower;
 	if (INPUT->GetButton(KEY_TYPE::S))
 		pos -= GetTransform()->GetUp() * _speed * DELTA_TIME;
 	if (INPUT->GetButton(KEY_TYPE::A))
