@@ -22,6 +22,8 @@ public:
 	virtual void FinalUpdate() override;
 
 	bool Collision();
+	bool BottomCollision(Transform& object1, Transform& object2);
+	bool SideCollision(Transform& object1, Transform& object2);
 
 	void SetForce(float value) { _force = value; }
 	void SetMass(float value) { _mass = value; }
@@ -39,4 +41,3 @@ private:
 	float	_mass = 1.f;
 	float	_gravity = 2.f;
 };
-
