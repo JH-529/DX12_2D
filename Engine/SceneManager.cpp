@@ -117,7 +117,7 @@ void SceneManager::MakeMainScene()
 		playerCollider->SetAlive();
 		shared_ptr<RigidBody2D> rigidBody2D = make_shared<RigidBody2D>();
 		rigidBody2D->SetGravity(9.8f);		
-		rigidBody2D->SetForce(1.f);		
+		rigidBody2D->SetForce(1.1f);		
 		player->AddComponent(playerCollider);		
 		player->AddComponent(rigidBody2D);
 		player->AddComponent(make_shared<PlayerScript>());
@@ -164,8 +164,12 @@ void SceneManager::MakeMainScene()
 			meshRenderer->SetMaterial(material);
 		}							
 		gameObject->AddComponent(meshRenderer);
+		shared_ptr<RigidBody2D> rigidBody2D = make_shared<RigidBody2D>();
+		rigidBody2D->SetGravity(9.8f);
+		rigidBody2D->SetForce(1.f);
 		shared_ptr<RectCollider2D> collider = make_shared<RectCollider2D>();
 		collider->SetAlive();
+		gameObject->AddComponent(rigidBody2D);
 		gameObject->AddComponent(collider);
 		scene->AddGameObject(gameObject);
 	}
@@ -178,7 +182,7 @@ void SceneManager::MakeMainScene()
 		// Transform 추가
 		gameObject2->AddComponent(make_shared<Transform>());
 		gameObject2->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
-		gameObject2->GetTransform()->SetLocalPosition(Vec3(300.f, -110.f, -2.f));
+		gameObject2->GetTransform()->SetLocalPosition(Vec3(400.f, -110.f, -2.f));
 		// MeshRenderer 생성
 		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
 		{ // 1. Mesh
@@ -191,11 +195,14 @@ void SceneManager::MakeMainScene()
 			material->SetTexture(0, monsterTexture);
 			material->SetInt(0, 1);
 			meshRenderer->SetMaterial(material);
-		}
+		}  
 		gameObject2->AddComponent(meshRenderer);
-
+		shared_ptr<RigidBody2D> rigidBody2D = make_shared<RigidBody2D>();
+		rigidBody2D->SetGravity(9.8f);
+		rigidBody2D->SetForce(1.f);
 		shared_ptr<RectCollider2D> collider = make_shared<RectCollider2D>();
 		collider->SetAlive();
+		gameObject2->AddComponent(rigidBody2D);
 		gameObject2->AddComponent(collider);
 		scene->AddGameObject(gameObject2);
 	}
@@ -207,7 +214,7 @@ void SceneManager::MakeMainScene()
 		tileMap->SetName(L"Tile");
 		// Transform 추가
 		tileMap->AddComponent(make_shared<Transform>());
-		tileMap->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
+		tileMap->GetTransform()->SetLocalScale(Vec3(1000.f, 100.f, 0.f));
 		tileMap->GetTransform()->SetLocalPosition(Vec3(100.f, -300.f, -2.f));
 		
 		shared_ptr<TilemapCollider> collider = make_shared<TilemapCollider>();
@@ -215,58 +222,58 @@ void SceneManager::MakeMainScene()
 		tileMap->AddComponent(collider);
 		scene->AddGameObject(tileMap);
 	}
-	{
-		shared_ptr<GameObject> tileMap = make_shared<GameObject>();
-		tileMap->SetName(L"Tile");
-		// Transform 추가
-		tileMap->AddComponent(make_shared<Transform>());
-		tileMap->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
-		tileMap->GetTransform()->SetLocalPosition(Vec3(0.f, -300.f, -2.f));
+	//{
+	//	shared_ptr<GameObject> tileMap = make_shared<GameObject>();
+	//	tileMap->SetName(L"Tile");
+	//	// Transform 추가
+	//	tileMap->AddComponent(make_shared<Transform>());
+	//	tileMap->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
+	//	tileMap->GetTransform()->SetLocalPosition(Vec3(0.f, -300.f, -2.f));
 
-		shared_ptr<TilemapCollider> collider = make_shared<TilemapCollider>();
-		collider->SetAlive();
-		tileMap->AddComponent(collider);
-		scene->AddGameObject(tileMap);
-	}
-	{
-		shared_ptr<GameObject> tileMap = make_shared<GameObject>();
-		tileMap->SetName(L"Tile");
-		// Transform 추가
-		tileMap->AddComponent(make_shared<Transform>());
-		tileMap->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
-		tileMap->GetTransform()->SetLocalPosition(Vec3(-100.f, -300.f, -2.f));
+	//	shared_ptr<TilemapCollider> collider = make_shared<TilemapCollider>();
+	//	collider->SetAlive();
+	//	tileMap->AddComponent(collider);
+	//	scene->AddGameObject(tileMap);
+	//}
+	//{
+	//	shared_ptr<GameObject> tileMap = make_shared<GameObject>();
+	//	tileMap->SetName(L"Tile");
+	//	// Transform 추가
+	//	tileMap->AddComponent(make_shared<Transform>());
+	//	tileMap->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
+	//	tileMap->GetTransform()->SetLocalPosition(Vec3(-100.f, -300.f, -2.f));
 
-		shared_ptr<TilemapCollider> collider = make_shared<TilemapCollider>();
-		collider->SetAlive();
-		tileMap->AddComponent(collider);
-		scene->AddGameObject(tileMap);
-	}
-	{
-		shared_ptr<GameObject> tileMap = make_shared<GameObject>();
-		tileMap->SetName(L"Tile");
-		// Transform 추가
-		tileMap->AddComponent(make_shared<Transform>());
-		tileMap->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
-		tileMap->GetTransform()->SetLocalPosition(Vec3(-200.f, -300.f, -2.f));
+	//	shared_ptr<TilemapCollider> collider = make_shared<TilemapCollider>();
+	//	collider->SetAlive();
+	//	tileMap->AddComponent(collider);
+	//	scene->AddGameObject(tileMap);
+	//}
+	//{
+	//	shared_ptr<GameObject> tileMap = make_shared<GameObject>();
+	//	tileMap->SetName(L"Tile");
+	//	// Transform 추가
+	//	tileMap->AddComponent(make_shared<Transform>());
+	//	tileMap->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
+	//	tileMap->GetTransform()->SetLocalPosition(Vec3(-200.f, -300.f, -2.f));
 
-		shared_ptr<TilemapCollider> collider = make_shared<TilemapCollider>();
-		collider->SetAlive();
-		tileMap->AddComponent(collider);
-		scene->AddGameObject(tileMap);
-	}
-	{
-		shared_ptr<GameObject> tileMap = make_shared<GameObject>();
-		tileMap->SetName(L"Tile");
-		// Transform 추가
-		tileMap->AddComponent(make_shared<Transform>());
-		tileMap->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
-		tileMap->GetTransform()->SetLocalPosition(Vec3(-300.f, -300.f, -2.f));
+	//	shared_ptr<TilemapCollider> collider = make_shared<TilemapCollider>();
+	//	collider->SetAlive();
+	//	tileMap->AddComponent(collider);
+	//	scene->AddGameObject(tileMap);
+	//}
+	//{
+	//	shared_ptr<GameObject> tileMap = make_shared<GameObject>();
+	//	tileMap->SetName(L"Tile");
+	//	// Transform 추가
+	//	tileMap->AddComponent(make_shared<Transform>());
+	//	tileMap->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
+	//	tileMap->GetTransform()->SetLocalPosition(Vec3(-300.f, -300.f, -2.f));
 
-		shared_ptr<TilemapCollider> collider = make_shared<TilemapCollider>();
-		collider->SetAlive();
-		tileMap->AddComponent(collider);
-		scene->AddGameObject(tileMap);
-	}
+	//	shared_ptr<TilemapCollider> collider = make_shared<TilemapCollider>();
+	//	collider->SetAlive();
+	//	tileMap->AddComponent(collider);
+	//	scene->AddGameObject(tileMap);
+	//}
 #pragma endregion
 
 #pragma region field

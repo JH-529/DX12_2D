@@ -37,6 +37,8 @@ public:
 	float GetForce() { return _force; }
 	float GetMass() { return _mass; }
 	float GetGravity() { return _gravity; }
+	bool GetLeftCollided() { return _leftCollided; }
+	bool GetRightCollided() { return _rightCollided; }
 
 private:
 	RIGID_BODY_TYPE _type = RIGID_BODY_TYPE::NONE;
@@ -46,5 +48,8 @@ private:
 	float	_mass = 1.f;
 	float	_gravity = 2.f;
 
-	bool	_isCollided;
+	bool	_bottomCollided = false;
+	bool	_sideCollided = false;
+	bool	_leftCollided = false;
+	bool	_rightCollided = false;
 };

@@ -9,10 +9,13 @@ public:
 	virtual ~PlayerScript();
 
 	float GetSpeed() { return _speed; }
+
+	void Start() override;
 	void Update() override;
 
 private:
-	float						_speed = 5.f;
+	shared_ptr<class RigidBody2D>	_rigidBody2D;
+	float							_speed = 5.f;
 
 };
 

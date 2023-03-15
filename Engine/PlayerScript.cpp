@@ -20,6 +20,11 @@ PlayerScript::~PlayerScript()
 {
 }
 
+void PlayerScript::Start()
+{
+	_rigidBody2D = GetGameObject()->GetRigidBody2D();
+}
+
 void PlayerScript::Update()
 {
 	Vec3 pos = GetTransform()->GetLocalPosition();
@@ -41,9 +46,11 @@ void PlayerScript::Update()
 	if (INPUT->GetButton(KEY_TYPE::S))
 		pos -= GetTransform()->GetUp() * _speed * DELTA_TIME;
 	if (INPUT->GetButton(KEY_TYPE::A))
-		pos -= GetTransform()->GetRight() * _speed * DELTA_TIME;
+		if(!_rigidBody2D->GetLeftCollided())
+			pos -= GetTransform()->GetRight() * _speed * DELTA_TIME;
 	if (INPUT->GetButton(KEY_TYPE::D))
-		pos += GetTransform()->GetRight() * _speed * DELTA_TIME;
+		if (!_rigidBody2D->GetRightCollided())
+			pos += GetTransform()->GetRight() * _speed * DELTA_TIME;
 
 	if (INPUT->GetButton(KEY_TYPE::Q))
 	{

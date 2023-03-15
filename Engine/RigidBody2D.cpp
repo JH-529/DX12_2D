@@ -19,16 +19,10 @@ RigidBody2D::~RigidBody2D()
 void RigidBody2D::Awake()
 {
 	_transform = GetGameObject()->GetTransform();
-	_isCollided = false;
 }
 
 void RigidBody2D::Start()
-{
-	// 충돌 발생시 1회만 실행
-	if (Collision())
-	{
-		_isCollided = true;		
-	}		
+{	
 }
 
 void RigidBody2D::Update()
@@ -47,17 +41,16 @@ void RigidBody2D::Update()
 	}*/
 
 	// 충돌시 수행할 RigidBody의 코드
-	if (Collision())
+	Collision();
+
+	if (!_bottomCollided)
 	{
-		GetGameObject()->GetTransform()->SetLocalPosition(_transform->GetLocalPosition());
-		return;
+		Vec3 pos = GetGameObject()->GetTransform()->GetLocalPosition();
+
+		pos.y -= _gravity;
+		GetGameObject()->GetTransform()->SetLocalPosition(pos);
 	}
-
-	_isCollided = false;
-	Vec3 pos = GetGameObject()->GetTransform()->GetLocalPosition();
-
-	pos.y -= _gravity;
-	GetGameObject()->GetTransform()->SetLocalPosition(pos);
+	
 }
 
 void RigidBody2D::LateUpdate()
@@ -79,10 +72,35 @@ bool RigidBody2D::Collision()
 	{
 		if (BottomCollision(*_transform, *gameObject->GetTransform()))
 		{
-			return true;
+			_bottomCollided = true;
+			if (SideCollision(*_transform, *gameObject->GetTransform()))
+			{				
+				_sideCollided = true;
+			}
+			// bottom만 충돌 후 side는 충돌하지 않음
+			_sideCollided = false;
+			_leftCollided = false;
+			_rightCollided = false;
 		}
+		if (SideCollision(*_transform, *gameObject->GetTransform()))
+		{
+			_sideCollided = true;
+			if (BottomCollision(*_transform, *gameObject->GetTransform()))
+			{
+				_bottomCollided = true;
+			}			
+		}
+
+		if (_bottomCollided || _sideCollided)
+			return true;
+
+		return false;
 	}
 
+	_bottomCollided = false;
+	_sideCollided = false;
+	_leftCollided = false;
+	_rightCollided = false;
 	return false;
 }
 
@@ -137,6 +155,7 @@ bool RigidBody2D::BottomCollision(Transform& object1, Transform& object2)
 		if ((object1_Vertex1.y <= object2_Vertex1.y) && 
 			(object2_Vertex1.y - _gravity * 1.f <= object1_Vertex1.y))
 		{			
+			_bottomCollided = true;
 			return true;
 		}
 	}
@@ -205,22 +224,32 @@ bool RigidBody2D::SideCollision(Transform& object1, Transform& object2)
 	// 2    1	2    1
 	// 4 vs 3	4 vs 3
 	// Object1의 우측이 Object2의 좌측에 충돌
-	if ((object1_Vertex2.y <= object2_Vertex1.y && object1_Vertex2.y >= object2_Vertex3.y) ||
-		(object1_Vertex4.y <= object2_Vertex1.y && object1_Vertex4.y >= object2_Vertex3.y))
+	if ((object1_Vertex2.y < object2_Vertex1.y - _gravity * 1.f && object1_Vertex2.y > object2_Vertex3.y) ||
+		(object1_Vertex4.y < object2_Vertex1.y - _gravity * 1.f && object1_Vertex4.y > object2_Vertex3.y))
 	{
-		if (object1_Vertex2.x >= object2_Vertex1.x)
+		//object1이 object2보다 왼쪽에 있어야한다.
+		if (object1_Vertex2.x < object2_Vertex2.x)
 		{
-			return true;
-		}
+			if (object1_Vertex2.x >= object2_Vertex1.x)
+			{
+				_rightCollided = true;
+				return true;
+			}
+		}		
 	}
 	// Object1의 좌측이 Object2의 우측에 충돌
-	if ((object1_Vertex1.y < object2_Vertex2.y && object1_Vertex1.y > object2_Vertex4.y) ||
-		(object1_Vertex3.y < object2_Vertex2.y && object1_Vertex3.y > object2_Vertex4.y))
+	if ((object1_Vertex1.y < object2_Vertex2.y - _gravity * 1.f && object1_Vertex1.y > object2_Vertex4.y) ||
+		(object1_Vertex3.y < object2_Vertex2.y - _gravity * 1.f && object1_Vertex3.y > object2_Vertex4.y))
 	{
-		if (object1_Vertex1.x >= object2_Vertex3.x)
+		// object1이 object2보다 우측에 있어야한다.
+		if (object1_Vertex1.x > object2_Vertex1.x)
 		{
-			return true;
-		}
+			if (object1_Vertex1.x < object2_Vertex2.x)
+			{
+				_leftCollided = true;
+				return true;
+			}
+		}		
 	}
 
 	return false;
