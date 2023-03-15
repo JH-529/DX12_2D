@@ -19,16 +19,41 @@ RigidBody2D::~RigidBody2D()
 void RigidBody2D::Awake()
 {
 	_transform = GetGameObject()->GetTransform();
+	_isCollided = false;
+}
+
+void RigidBody2D::Start()
+{
+	// 충돌 발생시 1회만 실행
+	if (Collision())
+	{
+		_isCollided = true;		
+	}		
 }
 
 void RigidBody2D::Update()
 {
-	// Collision 형태 다양화(해당 Collision은 그냥 AABB충돌만 처리) 필요
+	// Start때 이미 충돌한 상태 or Update과정 중 충돌 상태
+	/*if (_isCollided)
+	{
+		OnCollisionStay();
+		return;
+	}*/
+	/*if (Collision())
+	{
+		OnCollisionEnter();
+		_isCollided = true;
+		return;
+	}*/
+
+	// 충돌시 수행할 RigidBody의 코드
 	if (Collision())
 	{
+		GetGameObject()->GetTransform()->SetLocalPosition(_transform->GetLocalPosition());
 		return;
 	}
 
+	_isCollided = false;
 	Vec3 pos = GetGameObject()->GetTransform()->GetLocalPosition();
 
 	pos.y -= _gravity;
@@ -176,8 +201,40 @@ bool RigidBody2D::SideCollision(Transform& object1, Transform& object2)
 	object2_Vertex4.y = position2.y - halfDistance2.y;
 
 	// object1의 우측, object2의 좌측의 충돌 판단
-	
+	// o1	o2	o2	 o1
+	// 2    1	2    1
+	// 4 vs 3	4 vs 3
+	// Object1의 우측이 Object2의 좌측에 충돌
+	if ((object1_Vertex2.y <= object2_Vertex1.y && object1_Vertex2.y >= object2_Vertex3.y) ||
+		(object1_Vertex4.y <= object2_Vertex1.y && object1_Vertex4.y >= object2_Vertex3.y))
+	{
+		if (object1_Vertex2.x >= object2_Vertex1.x)
+		{
+			return true;
+		}
+	}
+	// Object1의 좌측이 Object2의 우측에 충돌
+	if ((object1_Vertex1.y < object2_Vertex2.y && object1_Vertex1.y > object2_Vertex4.y) ||
+		(object1_Vertex3.y < object2_Vertex2.y && object1_Vertex3.y > object2_Vertex4.y))
+	{
+		if (object1_Vertex1.x >= object2_Vertex3.x)
+		{
+			return true;
+		}
+	}
 
 	return false;
 }
+
+//void RigidBody2D::OnCollisionEnter()
+//{
+//}
+//
+//void RigidBody2D::OnCollisionStay()
+//{
+//}
+//
+//void RigidBody2D::OnCollisionExit()
+//{
+//}
 

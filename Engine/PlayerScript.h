@@ -8,6 +8,7 @@ public:
 	PlayerScript();
 	virtual ~PlayerScript();
 
+	float GetSpeed() { return _speed; }
 	void Update() override;
 
 private:

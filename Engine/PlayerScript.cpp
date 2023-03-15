@@ -57,7 +57,8 @@ void PlayerScript::Update()
 	GetTransform()->SetLocalPosition(pos);
 
 	// RayCast 동작 Debuging용
-	Vec2 rayPos = Vec2(pos.x, pos.y);
+	// *********성능저하 원인*********
+	/*Vec2 rayPos = Vec2(pos.x, pos.y);
 	Vec2 dir = Vec2(0.f, -1.f);
 	float dis = 3.f;
 	Debug::DrawRay2D(rayPos, dir, dis*10.f);
@@ -66,7 +67,7 @@ void PlayerScript::Update()
 	if (rayHit._collider != nullptr)
 	{
 		rayHit._collider->GetGameObject()->GetRectCollider2D()->CollidedColor();
-	}
+	}*/
 }
 
 

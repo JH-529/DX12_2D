@@ -19,5 +19,5 @@ void PlayerAttackScript::Update()
 	GetGameObject()->GetCollider()->SetDead();
 	
 	if (INPUT->GetButton(KEY_TYPE::J))
-		GetGameObject()->GetCollider()->SetAlive();		
+		GetGameObject()->GetCollider()->SetAlive();	
 }

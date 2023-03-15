@@ -3,6 +3,7 @@
 class GameObject;
 class Scene;
 
+// RayCast 함수 사용시 프레임 저하 발생
 class Physics2D
 {
 public:
