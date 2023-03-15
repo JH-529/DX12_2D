@@ -141,6 +141,9 @@
     <ClInclude Include="TilemapCollider.h">
       <Filter>Object\Component\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="MonsterScript.h">
+      <Filter>Object\Component\Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -247,6 +250,9 @@
     </ClCompile>
     <ClCompile Include="TilemapCollider.cpp">
       <Filter>Object\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterScript.cpp">
+      <Filter>Object\Component\Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

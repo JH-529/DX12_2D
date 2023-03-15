@@ -46,7 +46,7 @@ RectCollider2D::~RectCollider2D()
 
 void RectCollider2D::Update()
 {	
-	Render();
+	//Render();
 }
 
 void RectCollider2D::LateUpdate()
@@ -66,34 +66,40 @@ void RectCollider2D::FinalUpdate()
 
 void RectCollider2D::Render()
 {		
-	if (_transform == nullptr)
+	//if (_isAlive)
 	{
-		GetTransform()->PushData();
-		_material->Update();
-		_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+		if (_transform == nullptr)
+		{
+			GetTransform()->PushData();
+			_material->Update();
+			_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+		}
+		else
+		{
+			_transform->PushData();
+			_material->Update();
+			_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+		}
 	}	
-	else
-	{
-		_transform->PushData();
-		_material->Update();
-		_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
-	}
 }
 
 void RectCollider2D::Render(weak_ptr<Transform> position)
 {		
-	if (_transform == nullptr)
+	//if (_isAlive)
 	{
-		position.lock()->PushData();
-		_material->Update();
-		_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+		if (_transform == nullptr)
+		{
+			position.lock()->PushData();
+			_material->Update();
+			_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+		}
+		else
+		{
+			_transform->PushData();
+			_material->Update();
+			_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
+		}
 	}	
-	else
-	{
-		_transform->PushData();
-		_material->Update();
-		_mesh->Render(MESH_TYPE::LINESTRIP_MESH);
-	}
 }
 
 void RectCollider2D::CollidedColor()

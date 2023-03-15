@@ -19,13 +19,14 @@ public:
 	void SetProjectionType(PROJECTION_TYPE type) { _type = type; }
 	PROJECTION_TYPE GetProjectionType() { return _type; }
 
+	float GetScale() { return _scale; }
 private:
 	PROJECTION_TYPE _type = PROJECTION_TYPE::PERSPECTIVE;
 
 	float _near = 1.f;
 	float _far = 1000.f;
 	float _fov = XM_PI / 4.f;
-	float _scale = 1.f;
+	float _scale = 2.f;
 
 	Matrix _matView = {};
 	Matrix _matProjection = {};

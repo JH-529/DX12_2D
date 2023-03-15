@@ -34,14 +34,25 @@ public:
 	shared_ptr<Collider> GetCollider();
 	shared_ptr<RectCollider2D> GetRectCollider2D();
 	shared_ptr<TilemapCollider> GetTilemapCollider();
-	
+
 	void AddComponent(shared_ptr<Component> component);
 
 	void SetScene(const shared_ptr<Scene> scene) { _scene = scene; }
 	const shared_ptr<Scene> GetScene() { return _scene; }
+
+	void ObjectAlive() { _isAlive = true; }
+	void ObjectDead() { _isAlive = false; }
+	bool IsAlive() { return _isAlive; }
 		
+	void InitializeStatus() { _status = make_shared<Status>(); }
+	void SetStatus(shared_ptr<Status> status) { _status = status; }
+	shared_ptr<Status> GetStatus() { return _status; }
+
 private:
+	shared_ptr<Status>	_status;
 	array<shared_ptr<Component>, FIXED_COMPONENT_COUNT> _components;
 	vector<shared_ptr<MonoBehaviour>> _scripts;
 	shared_ptr<Scene>	_scene;
+	bool				_isAlive = true;
+	
 };

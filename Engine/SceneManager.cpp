@@ -15,6 +15,7 @@
 
 #include "PlayerScript.h"
 #include "PlayerAttackScript.h"
+#include "MonsterScript.h"
 #include "CameraScript.h"
 
 void SceneManager::Update()
@@ -83,10 +84,12 @@ void SceneManager::MakeMainScene()
 	shared_ptr<Shader> defaultShader = make_shared<Shader>();
 	shared_ptr<Texture> playerTexture = make_shared<Texture>();
 	shared_ptr<Texture> monsterTexture = make_shared<Texture>();	
+	shared_ptr<Texture> attackTexture = make_shared<Texture>();	
 	shared_ptr<Texture> fieldTexture = make_shared<Texture>();
 	defaultShader->Init(L"..\\Resources\\Shader\\default.hlsl");
 	playerTexture->Init(L"..\\Resources\\Texture\\Cat.png");
 	monsterTexture->Init(L"..\\Resources\\Texture\\BlueSnail.jpg");
+	attackTexture->Init(L"..\\Resources\\Texture\\effect.png");
 	fieldTexture->Init(L"..\\Resources\\Texture\\field.png");
 
 #pragma region Player
@@ -95,8 +98,8 @@ void SceneManager::MakeMainScene()
 		player->SetName(L"Player");
 		// Transform 추가
 		player->AddComponent(make_shared<Transform>());
-		player->GetTransform()->SetLocalScale(Vec3(170.f, 170.f, 0.f));
-		player->GetTransform()->SetLocalPosition(Vec3(-300.f, -160.f, -2.f));
+		player->GetTransform()->SetLocalScale(Vec3(200.f, 200.f, 0.f));
+		player->GetTransform()->SetLocalPosition(Vec3(-800.f, -160.f, -2.f));
 
 		// MeshRenderer 생성
 		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
@@ -116,7 +119,7 @@ void SceneManager::MakeMainScene()
 		shared_ptr<RectCollider2D> playerCollider = make_shared<RectCollider2D>();
 		playerCollider->SetAlive();
 		shared_ptr<RigidBody2D> rigidBody2D = make_shared<RigidBody2D>();
-		rigidBody2D->SetGravity(9.8f);		
+		rigidBody2D->SetGravity(10.f);		
 		rigidBody2D->SetForce(1.1f);		
 		player->AddComponent(playerCollider);		
 		player->AddComponent(rigidBody2D);
@@ -131,21 +134,37 @@ void SceneManager::MakeMainScene()
 			playerAttack->GetTransform()->SetLocalPosition(Vec3(0.7f, 0.f, 0.f));
 			playerAttack->GetTransform()->SetParent(player->GetTransform());				
 			playerAttack->GetTransform()->SetLocalScale(Vec3(1.f, 0.7f, 0));
+			// MeshRenderer 생성
+			shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
+			{ // 1. Mesh
+				shared_ptr<Mesh> mesh = GET_SINGLE(Resources)->LoadRectMesh();
+				meshRenderer->SetMesh(mesh);
+			}
+			{ // 2. Material
+				shared_ptr<Material> material = make_shared<Material>();
+				material->SetShader(defaultShader);
+				material->SetTexture(0, attackTexture);
+				material->SetInt(0, 1);
+				meshRenderer->SetMaterial(material);
+			}
+			playerAttack->AddComponent(meshRenderer);
 			{
 				shared_ptr<RectCollider2D> attackCollider = make_shared<RectCollider2D>();
-				attackCollider->SetAlive();
+				attackCollider->SetDead();
 				playerAttack->AddComponent(attackCollider);
 			}			
 			playerAttack->AddComponent(make_shared<PlayerAttackScript>());
+			playerAttack->ObjectDead();
 			scene->AddGameObject(playerAttack);
 		}
 	}
 #pragma endregion
 
-#pragma region Object
+#pragma region Monster
 	{
 		shared_ptr<GameObject> gameObject = make_shared<GameObject>();
-		gameObject->SetName(L"Object");
+		gameObject->SetName(L"Monster");
+		gameObject->InitializeStatus();
 		// Transform 추가
 		gameObject->AddComponent(make_shared<Transform>());
 		gameObject->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
@@ -171,14 +190,16 @@ void SceneManager::MakeMainScene()
 		collider->SetAlive();
 		gameObject->AddComponent(rigidBody2D);
 		gameObject->AddComponent(collider);
+		gameObject->AddComponent(make_shared<MonsterScript>());
 		scene->AddGameObject(gameObject);
 	}
 #pragma endregion
 
-#pragma region Object2
+#pragma region Monster2
 	{
 		shared_ptr<GameObject> gameObject2 = make_shared<GameObject>();
-		gameObject2->SetName(L"Object2");
+		gameObject2->SetName(L"Monster2");
+		gameObject2->InitializeStatus();
 		// Transform 추가
 		gameObject2->AddComponent(make_shared<Transform>());
 		gameObject2->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 0.f));
@@ -204,18 +225,47 @@ void SceneManager::MakeMainScene()
 		collider->SetAlive();
 		gameObject2->AddComponent(rigidBody2D);
 		gameObject2->AddComponent(collider);
+		gameObject2->AddComponent(make_shared<MonsterScript>());
 		scene->AddGameObject(gameObject2);
 	}
 #pragma endregion
 
 #pragma region TileMap
+	// 1 floor
 	{
 		shared_ptr<GameObject> tileMap = make_shared<GameObject>();
 		tileMap->SetName(L"Tile");
 		// Transform 추가
 		tileMap->AddComponent(make_shared<Transform>());
-		tileMap->GetTransform()->SetLocalScale(Vec3(1000.f, 100.f, 0.f));
-		tileMap->GetTransform()->SetLocalPosition(Vec3(100.f, -300.f, -2.f));
+		tileMap->GetTransform()->SetLocalScale(Vec3(700.f, 100.f, 0.f));
+		tileMap->GetTransform()->SetLocalPosition(Vec3(-700.f, -700.f, -2.f));
+
+		shared_ptr<TilemapCollider> collider = make_shared<TilemapCollider>();
+		collider->SetAlive();
+		tileMap->AddComponent(collider);
+		scene->AddGameObject(tileMap);
+	}
+	{
+		shared_ptr<GameObject> tileMap = make_shared<GameObject>();
+		tileMap->SetName(L"Tile");
+		// Transform 추가
+		tileMap->AddComponent(make_shared<Transform>());
+		tileMap->GetTransform()->SetLocalScale(Vec3(200.f, 100.f, 0.f));
+		tileMap->GetTransform()->SetLocalPosition(Vec3(-330.f, -620.f, -2.f));
+
+		shared_ptr<TilemapCollider> collider = make_shared<TilemapCollider>();
+		collider->SetAlive();
+		tileMap->AddComponent(collider);
+		scene->AddGameObject(tileMap);
+	}
+	// 2 floor
+	{
+		shared_ptr<GameObject> tileMap = make_shared<GameObject>();
+		tileMap->SetName(L"Tile");
+		// Transform 추가
+		tileMap->AddComponent(make_shared<Transform>());
+		tileMap->GetTransform()->SetLocalScale(Vec3(1400.f, 100.f, 0.f));
+		tileMap->GetTransform()->SetLocalPosition(Vec3(350.f, -550.f, -2.f));
 		
 		shared_ptr<TilemapCollider> collider = make_shared<TilemapCollider>();
 		collider->SetAlive();
@@ -284,8 +334,8 @@ void SceneManager::MakeMainScene()
 		fieldObject->AddComponent(make_shared<Transform>());
 		/*float height = GEngine->GetWindow().height;		
 		float width = GEngine->GetWindow().width;*/		
-		float width = 1920;
-		float height = 1080;
+		float width = static_cast<float>(GEngine->GetWindow().width) * 2.5f;
+		float height = static_cast<float>(GEngine->GetWindow().height) * 2.5f;
 		fieldObject->GetTransform()->SetLocalScale(Vec3(width, height, 0.f));
 
 		// GameObject에 추가될 MeshRenderer

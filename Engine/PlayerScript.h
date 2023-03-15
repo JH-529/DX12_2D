@@ -13,9 +13,12 @@ public:
 	void Start() override;
 	void Update() override;
 
+public:
+	static Status	S_playerStat;
+
 private:
 	shared_ptr<class RigidBody2D>	_rigidBody2D;
-	float							_speed = 5.f;
 
+	float			_speed = 5.f;
 };
 

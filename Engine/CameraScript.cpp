@@ -3,6 +3,7 @@
 #include "Engine.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "Camera.h"
 #include "Component.h"
 #include "Scene.h"
 #include "Input.h"
@@ -50,8 +51,9 @@ void CameraScript::LateUpdate()
 	Vec3 fieldScale = _fieldTransform->GetLocalScale();
 	Vec3 cameraPos = playerPos;
 	
-	float width = static_cast<float>(GEngine->GetWindow().width);
-	float height = static_cast<float>(GEngine->GetWindow().height);
+	float scale = GetGameObject()->GetCamera()->GetScale();
+	float width = static_cast<float>(GEngine->GetWindow().width) * scale;
+	float height = static_cast<float>(GEngine->GetWindow().height) * scale;
 
 	if ((cameraPos.x - width / 2) < (fieldPos.x - fieldScale.x / 2))
 	{

@@ -150,4 +150,31 @@ struct RayCastHit2D
 	float	_distance;
 };
 
+class Status
+{
+public:
+	Status() : _maxHp(3.f), _hp(3.f), _attack(1.f)
+	{
+
+	}
+	Status(float maxHp, float hp, float attack) : _maxHp(maxHp), _hp(hp), _attack(attack)
+	{
+
+	}
+	~Status() {}
+
+	void SetMaxHp(float maxHp) { _maxHp = maxHp; }
+	void SetHp(float hp) { _hp = hp; }
+	void SetAttack(float attack) { _attack = attack; }
+
+	float GetMaxHp() { return _maxHp; }
+	float GetHp() { return _hp; }
+	float GetAttack() { return _attack; }
+
+private:
+	float _maxHp;
+	float _hp;
+	float _attack;
+};
+
 extern unique_ptr<class Engine> GEngine;

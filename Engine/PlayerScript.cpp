@@ -12,8 +12,11 @@
 #include "Physics2D.h"
 #include "Debug.h"
 
+Status PlayerScript::S_playerStat;
+
 PlayerScript::PlayerScript() : MonoBehaviour(BEHAVIOUR_TYPE::PLAYER)
 {
+	S_playerStat = Status(5.f, 5.f, 1.f);
 }
 
 PlayerScript::~PlayerScript()

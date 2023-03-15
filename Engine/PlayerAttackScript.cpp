@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "PlayerScript.h"
 #include "PlayerAttackScript.h"
 #include "GameObject.h"
 #include "Collider.h"
@@ -15,9 +16,13 @@ PlayerAttackScript::~PlayerAttackScript()
 }
 
 void PlayerAttackScript::Update()
-{
+{	
+	GetGameObject()->ObjectDead();
 	GetGameObject()->GetCollider()->SetDead();
 	
-	if (INPUT->GetButton(KEY_TYPE::J))
-		GetGameObject()->GetCollider()->SetAlive();	
+	if (INPUT->GetButtonDown(KEY_TYPE::J))
+	{
+		GetGameObject()->ObjectAlive();
+		GetGameObject()->GetCollider()->SetAlive();
+	}		
 }

@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "RectCollider2D.h"
+#include "PlayerScript.h"
+#include "MonsterScript.h"
 
 Scene::Scene(SCENE_TYPE type) : _type(type)
 {
@@ -111,6 +113,10 @@ void Scene::ObjectCollision()
 		// Collider가 살아있는 오브젝트에 대해서만 AABB 적용
 		if (_player->GetCollider()->IsAlive() && colliderGameObject->GetCollider()->IsAlive())
 		{
+			if (!colliderGameObject->GetCollider()->IsAlive())
+			{
+
+			}
 			if (RectCollider2D::AABB(*playerTransform, *objectTransform))
 			{
 				_player->GetRectCollider2D()->SetCollidedTrue();
@@ -148,10 +154,16 @@ void Scene::AttackCollision()
 				{
 					if (RectCollider2D::AABB(*(colliderAttack->GetTransform()), *(colliderGameObject->GetTransform())))
 					{
+						// 비주얼 처리
 						colliderAttack->GetRectCollider2D()->SetCollidedTrue();
 						colliderAttack->GetRectCollider2D()->CollidedColor();
 						colliderGameObject->GetRectCollider2D()->SetCollidedTrue();
 						colliderGameObject->GetRectCollider2D()->CollidedColor();
+
+						// 로직 처리
+						float damage = PlayerScript::S_playerStat.GetAttack();
+						shared_ptr<Status> status = colliderGameObject->GetStatus();
+						status->SetHp(status->GetHp() - damage);
 					}
 					else
 					{
