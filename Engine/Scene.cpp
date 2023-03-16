@@ -3,8 +3,10 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "RectCollider2D.h"
+#include "RigidBody2D.h"
 #include "PlayerScript.h"
 #include "MonsterScript.h"
+#include "Portal.h"
 
 Scene::Scene(SCENE_TYPE type) : _type(type)
 {
@@ -27,9 +29,11 @@ void Scene::Start()
 }
 
 void Scene::Update()
-{
-	ObjectCollision();
+{	
+	ObjectCollision(); // AABB충돌 시 색깔 출력용
 	AttackCollision();
+	PortalCollision();
+
 	for (const shared_ptr<GameObject>& gameObject : _gameObjects)
 	{
 		gameObject->Update();
@@ -78,12 +82,22 @@ void Scene::AddGameObject(shared_ptr<GameObject> gameObject)
 		return;
 	}
 
-
 	if (gameObject->GetName() == L"Monster")
 	{
 		_monsters.push_back(gameObject);		
 	}
 
+	if (gameObject->GetName() == L"Object")
+	{
+		_objects.push_back(gameObject);
+		return;
+	}
+
+	if (gameObject->GetPortal())
+	{
+		_portals.push_back(gameObject);
+		return;
+	}
 
 	if (gameObject->GetCollider())
 	{
@@ -120,10 +134,12 @@ void Scene::ObjectCollision()
 		// Collider가 살아있는 오브젝트에 대해서만 AABB 적용
 		if (_player->GetCollider()->IsAlive() && colliderGameObject->GetCollider()->IsAlive())
 		{
+			// Collider가 죽어있는 경우
 			if (!colliderGameObject->GetCollider()->IsAlive())
 			{
 
 			}
+
 			if (RectCollider2D::AABB(*playerTransform, *objectTransform))
 			{
 				_player->GetRectCollider2D()->SetCollidedTrue();
@@ -194,6 +210,35 @@ void Scene::AttackCollision()
 		// collider가 Dead일 경우 Collider의 경계선을 BaseColor로 칠함
 		else
 			colliderAttack->GetRectCollider2D()->BaseColor();
+	}
+}
+
+void Scene::PortalCollision()
+{
+	shared_ptr<Transform> playerTransform = _player->GetTransform();
+	_player->GetRigidBody2D()->NotInPortal();
+
+	for (auto& portal : _portals)
+	{
+		shared_ptr<Transform> portalTransform = portal->GetTransform();
+
+		if (RectCollider2D::InPortal(*playerTransform, *portalTransform))
+		{
+			_player->GetRigidBody2D()->InPortal();
+			_portalType = portal->GetPortal()->GetStage();
+			portal->GetRectCollider2D()->SetCollidedTrue();
+			portal->GetRectCollider2D()->InPortalColor();
+		}
+		else
+		{
+			if (_player->GetRigidBody2D()->IsInportal())
+				_player->GetRectCollider2D()->InPortalColor();
+
+			if (portal->GetRectCollider2D()->GetCollided())
+				portal->GetRectCollider2D()->InPortalColor();
+			else
+				portal->GetRectCollider2D()->BaseColor();
+		}
 	}
 }
 

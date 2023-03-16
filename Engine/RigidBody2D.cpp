@@ -54,6 +54,7 @@ bool RigidBody2D::Collision()
 	// Collider를 포함하고 있는 모든 GameObject들을 가져옴
 	shared_ptr<Scene> scene = GetGameObject()->GetScene();
 	vector<shared_ptr<GameObject>> gameObjects = scene->GetColliderObjects();
+	vector<shared_ptr<GameObject>> objects = scene->GetObjects();
 
 	_bottomCollided = false;
 	_sideCollided = false;
@@ -70,6 +71,18 @@ bool RigidBody2D::Collision()
 				_bottomCollided = true;
 			}
 		}		
+	}
+
+	// 오브젝트 지면 충돌 판별
+	for (auto& object : objects)
+	{
+		if (object->GetCollider()->IsAlive())
+		{
+			if (BottomCollision(*_transform, *object->GetTransform()))
+			{
+				_bottomCollided = true;
+			}
+		}
 	}
 
 	// 측면 충돌 판별

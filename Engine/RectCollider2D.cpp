@@ -108,6 +108,11 @@ void RectCollider2D::CollidedColor()
 	_material->SetVec4(_collidedColor);
 }
 
+void RectCollider2D::InPortalColor()
+{
+	_material->SetVec4(_inPortalColor);
+}
+
 void RectCollider2D::BaseColor()
 {
 	_material->SetVec4(_baseColor);
@@ -185,6 +190,41 @@ bool RectCollider2D::RayCastRect(Ray& ray, Transform& object)
 	}
 	if ((rayPosition.x > objectPosition.x - objectScale.x / 2) && (rayPosition.x < objectPosition.x + objectScale.x / 2) &&
 		(rayPosition.y > objectPosition.y - objectScale.y / 2) && (rayPosition.y < objectPosition.y + objectScale.y / 2))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+// player가 바닥에 있어야함이 전제조건
+bool RectCollider2D::InPortal(Transform& player, Transform& portal)
+{
+	// 두 물체의 위치
+	Vec2 position1;
+	position1.x = player.GetWorldPosition().x;
+	position1.y = player.GetWorldPosition().y;
+	Vec2 position2;
+	position2.x = portal.GetWorldPosition().x;
+	position2.y = portal.GetWorldPosition().y;
+
+	// 두 물체의 x, y축 각각의 크기
+	Vec2 scale1;
+	scale1.x = player.GetWorldScale().x;
+	scale1.y = player.GetWorldScale().y;
+	Vec2 scale2;
+	scale2.x = portal.GetWorldScale().x;
+	scale2.y = portal.GetWorldScale().y;
+
+	Vec2 halfDistance1, halfDistance2;
+	halfDistance1 = Vec2(fabsf(scale1.x), fabsf(scale1.y)) * 0.5f;
+	halfDistance2 = Vec2(fabsf(scale2.x), fabsf(scale2.y)) * 0.5f;
+
+	float portalLeft = position2.x - halfDistance2.x;
+	float portalRight = position2.x + halfDistance2.x;
+
+	// player의 정중앙 x축 위치가 portal의 내부에 있다면 portal에 들어온 것
+	if (portalLeft <= position1.x && position1.x <= portalRight)
 	{
 		return true;
 	}

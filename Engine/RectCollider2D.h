@@ -14,12 +14,14 @@ public:
 
 	virtual void Render() override;
 	void Render(weak_ptr<Transform> position);
-
+		
 	void CollidedColor();
+	void InPortalColor();
 	void BaseColor();
-	
+		
 	static bool AABB(Transform& world1, Transform& world2);
 	static bool RayCastRect(Ray& ray, Transform& object);
+	static bool InPortal(Transform& position, Transform& portal);
 
 private:
 

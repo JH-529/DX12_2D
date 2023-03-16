@@ -9,6 +9,7 @@ enum class COMPONENT_TYPE : uint8
 	COLLIDER,
 	ATTACK,
 	RIGID_BODY,
+	PORTAL,
 	// ...
 	MONO_BEHAVIOUR,
 	END,

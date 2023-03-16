@@ -8,5 +8,6 @@ public:
 private:
 	shared_ptr<class Scene> _activeScene;
 	vector<shared_ptr<class GameObject>> _colliderObjects;
+	vector<shared_ptr<class GameObject>> _objects;
 };
 

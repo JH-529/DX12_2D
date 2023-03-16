@@ -26,10 +26,6 @@ public:
 	bool BottomCollision(Transform& object1, Transform& object2);
 	bool SideCollision(Transform& object1, Transform& object2);
 
-	//void OnCollisionEnter();
-	//void OnCollisionStay();
-	//void OnCollisionExit();
-
 	void SetForce(float value) { _force = value; }
 	void SetMass(float value) { _mass = value; }
 	void SetGravity(float value) { _gravity = value; }
@@ -39,6 +35,10 @@ public:
 	float GetGravity() { return _gravity; }
 	bool GetLeftCollided() { return _leftCollided; }
 	bool GetRightCollided() { return _rightCollided; }
+
+	void InPortal() { _inPortal = true; }
+	void NotInPortal() { _inPortal = false; }
+	bool IsInportal() { return _inPortal; }
 
 private:
 	RIGID_BODY_TYPE _type = RIGID_BODY_TYPE::NONE;
@@ -52,4 +52,5 @@ private:
 	bool	_sideCollided = false;
 	bool	_leftCollided = false;
 	bool	_rightCollided = false;
+	bool	_inPortal = false;
 };

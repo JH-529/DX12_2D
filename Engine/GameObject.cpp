@@ -7,6 +7,7 @@
 #include "RectCollider2D.h"
 #include "TilemapCollider.h"
 #include "RigidBody2D.h"
+#include "Portal.h"
 #include "MonoBehaviour.h"
 
 GameObject::GameObject() : Object(OBJECT_TYPE::GAMEOBJECT)
@@ -113,6 +114,12 @@ shared_ptr<RigidBody2D> GameObject::GetRigidBody2D()
 {
 	shared_ptr<Component> component = GetFixedComponent(COMPONENT_TYPE::RIGID_BODY);
 	return static_pointer_cast<RigidBody2D>(component);
+}
+
+shared_ptr<Portal> GameObject::GetPortal()
+{
+	shared_ptr<Component> component = GetFixedComponent(COMPONENT_TYPE::PORTAL);
+	return static_pointer_cast<Portal>(component);
 }
 
 shared_ptr<Collider> GameObject::GetCollider()

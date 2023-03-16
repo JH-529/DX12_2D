@@ -49,6 +49,7 @@ protected:
 
 	Vec4	_baseColor = { 0.f, 1.f, 0.f, 0.f };
 	Vec4	_collidedColor = { 1.f, 0.f, 0.f, 0.f };
+	Vec4	_inPortalColor = { 0.f, 0.f, 1.f, 0.f };
 
 	COLLIDER_TYPE			_type;
 	bool					_collided = false;	
