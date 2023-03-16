@@ -9,6 +9,10 @@ enum class KEY_TYPE
 
 	SPACE = VK_SPACE,
 
+	F1 = VK_F1,
+	F2 = VK_F2,
+	F3 = VK_F3,
+
 	W = 'W',
 	A = 'A',
 	S = 'S',
@@ -18,7 +22,7 @@ enum class KEY_TYPE
 	E = 'E',
 	J = 'J',
 	K = 'K',
-	L = 'L',
+	L = 'L',	
 };
 
 enum class KEY_STATE

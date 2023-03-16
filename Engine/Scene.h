@@ -46,6 +46,8 @@ private:
 	shared_ptr<GameObject> _player;
 	shared_ptr<GameObject> _field;
 	vector<shared_ptr<GameObject>> _gameObjects;
+	vector<shared_ptr<GameObject>> _portals;
+	vector<shared_ptr<GameObject>> _monsters;
 	vector<shared_ptr<GameObject>> _colliderGameObjects;
 	vector<shared_ptr<GameObject>> _colliderAttack;
 };

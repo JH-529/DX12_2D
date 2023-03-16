@@ -26,9 +26,12 @@ public:
 	virtual void Render();
 
 	COLLIDER_TYPE GetColloderType() { return _type; }
-	void SetAlive() { _isAlive = true; }
-	void SetDead() { _isAlive = false; }
+	void SetAlive() { _isAlive = true; _isRender = true; }
+	void SetDead() { _isAlive = false; _isRender = false; }
+	void SetRender() { _isRender = true; }
+	void NotRender() { _isRender = false; }
 	bool IsAlive() { return _isAlive; }
+	bool IsRender() { return _isRender; }
 	
 	bool GetCollided() { return _collided; }
 	void SetCollidedTrue() { _collided = true; }
@@ -50,5 +53,6 @@ protected:
 	COLLIDER_TYPE			_type;
 	bool					_collided = false;	
 	bool					_isAlive = false;
+	bool					_isRender = false;
 };
 

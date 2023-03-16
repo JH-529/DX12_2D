@@ -78,6 +78,13 @@ void Scene::AddGameObject(shared_ptr<GameObject> gameObject)
 		return;
 	}
 
+
+	if (gameObject->GetName() == L"Monster")
+	{
+		_monsters.push_back(gameObject);		
+	}
+
+
 	if (gameObject->GetCollider())
 	{
 		if (gameObject->GetName() == L"Attack")
@@ -148,21 +155,21 @@ void Scene::AttackCollision()
 
 		if (colliderAttack->GetCollider()->IsAlive())
 		{
-			for (const shared_ptr<GameObject>& colliderGameObject : _colliderGameObjects)
+			for (const shared_ptr<GameObject>& monster : _monsters)
 			{
-				if (colliderGameObject->GetCollider()->IsAlive())
+				if (monster->GetCollider()->IsAlive())
 				{
-					if (RectCollider2D::AABB(*(colliderAttack->GetTransform()), *(colliderGameObject->GetTransform())))
+					if (RectCollider2D::AABB(*(colliderAttack->GetTransform()), *(monster->GetTransform())))
 					{
 						// 厚林倔 贸府
 						colliderAttack->GetRectCollider2D()->SetCollidedTrue();
 						colliderAttack->GetRectCollider2D()->CollidedColor();
-						colliderGameObject->GetRectCollider2D()->SetCollidedTrue();
-						colliderGameObject->GetRectCollider2D()->CollidedColor();
+						monster->GetRectCollider2D()->SetCollidedTrue();
+						monster->GetRectCollider2D()->CollidedColor();
 
-						// 肺流 贸府
+						// 傍拜 肺流 贸府
 						float damage = PlayerScript::S_playerStat.GetAttack();
-						shared_ptr<Status> status = colliderGameObject->GetStatus();
+						shared_ptr<Status> status = monster->GetStatus();
 						status->SetHp(status->GetHp() - damage);
 					}
 					else
@@ -172,12 +179,12 @@ void Scene::AttackCollision()
 						else
 							colliderAttack->GetRectCollider2D()->BaseColor();
 
-						if(colliderGameObject->GetRectCollider2D()->GetCollided())
-							colliderGameObject->GetRectCollider2D()->CollidedColor();
+						if(monster->GetRectCollider2D()->GetCollided())
+							monster->GetRectCollider2D()->CollidedColor();
 						else
 						{
-							colliderGameObject->GetRectCollider2D()->SetCollidedFalse();
-							colliderGameObject->GetRectCollider2D()->BaseColor();
+							monster->GetRectCollider2D()->SetCollidedFalse();
+							monster->GetRectCollider2D()->BaseColor();
 						}
 							
 					}

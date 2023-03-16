@@ -27,19 +27,6 @@ void RigidBody2D::Start()
 
 void RigidBody2D::Update()
 {
-	// Start때 이미 충돌한 상태 or Update과정 중 충돌 상태
-	/*if (_isCollided)
-	{
-		OnCollisionStay();
-		return;
-	}*/
-	/*if (Collision())
-	{
-		OnCollisionEnter();
-		_isCollided = true;
-		return;
-	}*/
-
 	// 충돌시 수행할 RigidBody의 코드	
 	Collision();
 
@@ -289,16 +276,3 @@ bool RigidBody2D::SideCollision(Transform& object1, Transform& object2)
 
 	return false;
 }
-
-//void RigidBody2D::OnCollisionEnter()
-//{
-//}
-//
-//void RigidBody2D::OnCollisionStay()
-//{
-//}
-//
-//void RigidBody2D::OnCollisionExit()
-//{
-//}
-

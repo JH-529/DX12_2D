@@ -49,8 +49,9 @@ void Camera::Render()
 				
 		if (gameObject->GetCollider())
 		{
-			COLLIDER_TYPE type = gameObject->GetCollider()->GetColloderType();
-			gameObject->GetCollider()->Render();
+			//COLLIDER_TYPE type = gameObject->GetCollider()->GetColloderType();
+			if(gameObject->GetCollider()->IsRender())
+				gameObject->GetCollider()->Render();
 		}			
 	}
 }

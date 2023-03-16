@@ -46,18 +46,19 @@ RectCollider2D::~RectCollider2D()
 
 void RectCollider2D::Update()
 {	
-	//Render();
+	if (IsRender())
+		Render();
 }
 
 void RectCollider2D::LateUpdate()
 {
-	if (IsAlive())
+	/*if (IsAlive())
 	{
 		if (INPUT->GetButton(KEY_TYPE::Q))
 			_material->SetVec4(_collidedColor);
 		if (INPUT->GetButton(KEY_TYPE::E))
 			_material->SetVec4(_baseColor);
-	}	
+	}*/	
 }
 
 void RectCollider2D::FinalUpdate()
@@ -66,7 +67,7 @@ void RectCollider2D::FinalUpdate()
 
 void RectCollider2D::Render()
 {		
-	//if (_isAlive)
+	if (_isAlive)
 	{
 		if (_transform == nullptr)
 		{
